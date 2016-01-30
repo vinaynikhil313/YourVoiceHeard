@@ -20,6 +20,7 @@ import com.example.benjaminlize.yourvoiceheard.start.presenter.StartPagePresente
 import com.example.benjaminlize.yourvoiceheard.login.LoginActivity;
 import com.example.benjaminlize.yourvoiceheard.R;
 import com.example.benjaminlize.yourvoiceheard.utils.Constants;
+import com.example.benjaminlize.yourvoiceheard.utils.Utilities;
 import com.facebook.FacebookSdk;
 
 import java.security.MessageDigest;
@@ -57,7 +58,7 @@ public class StartPage extends Activity implements StartPageView{
         sharedPreferences = getSharedPreferences (Constants.MY_PREF, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit ();
 
-        checkPreviousPasswordLogin();
+        checkPreviousPasswordLogin ();
 
         setContentView (R.layout.start_page);
 

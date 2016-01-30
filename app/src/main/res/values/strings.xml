@@ -2,4 +2,5 @@
     <string name="app_name">YourVoiceHeard</string>
     <string name="action_settings">Settings</string>
     <string name="facebook_app_id">923679727707562</string>
+    <string name="google_api_key">AIzaSyCFgHMgyIbQVGkiJs_6xMK8ZAUXX72f-Cc</string>
 </resources>

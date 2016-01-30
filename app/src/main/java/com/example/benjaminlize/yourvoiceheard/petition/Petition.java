@@ -13,6 +13,7 @@ import java.util.Map;
  */
 public class Petition implements Serializable{
 
+    private String mCategory;
     private String mUniqueId;
     private String mTitle;
     private String mLongDescription;
@@ -22,6 +23,14 @@ public class Petition implements Serializable{
     private int mSigns;
     private int mUnsigns;
     private Map<String, Integer> mUsers = new HashMap<String, Integer> ();
+
+    public String getmCategory () {
+        return mCategory;
+    }
+
+    public void setmCategory (String mCategory) {
+        this.mCategory = mCategory;
+    }
 
     public int getmSigns () {
         return mSigns;

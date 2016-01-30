@@ -50,5 +50,5 @@ dependencies {
     compile 'com.firebase:firebase-client-android:2.5.0'
     compile 'com.facebook.android:facebook-android-sdk:4.6.0'
     compile files('libs/picasso-2.5.2.jar')
-    compile 'com.lsjwzh:materialloadingprogressbar:0.5.8-RELEASE'
+    compile files('libs/YouTubeAndroidPlayerApi.jar')
 }

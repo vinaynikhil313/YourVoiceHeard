@@ -74,12 +74,39 @@
         <activity
             android:name=".petition.view.PetitionActivity"
             android:label="Petition Page"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:configChanges="orientation|keyboardHidden|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".main.view.MainActivity" />
             <intent-filter>
                 <action android:name="com.example.bejaminlize.yourvoiceheard.PetitionActivity"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".settings.view.SettingsActivity"
+            android:label="Settings"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".main.view.MainActivity" />
+            <intent-filter>
+                <action android:name="com.example.bejaminlize.yourvoiceheard.SettingsActivity"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".preferences.view.PreferencesActivity"
+            android:label="Preferences"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".settings.view.SettingsActivity" />
+            <intent-filter>
+                <action android:name="com.example.bejaminlize.yourvoiceheard.PreferencesActivity"/>
 
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
