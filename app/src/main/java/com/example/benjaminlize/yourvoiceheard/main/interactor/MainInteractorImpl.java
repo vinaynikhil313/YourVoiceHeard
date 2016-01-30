@@ -1,14 +1,10 @@
 package com.example.benjaminlize.yourvoiceheard.main.interactor;
 
 import android.util.Log;
-import android.widget.ListView;
 
-import com.example.benjaminlize.yourvoiceheard.R;
-import com.example.benjaminlize.yourvoiceheard.main.presenter.MainPresenter;
 import com.example.benjaminlize.yourvoiceheard.main.presenter.OnMainFinishedListener;
 import com.example.benjaminlize.yourvoiceheard.petition.Petition;
 import com.example.benjaminlize.yourvoiceheard.utils.Constants;
-import com.example.benjaminlize.yourvoiceheard.utils.PetitionsDisplayAdapter;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;

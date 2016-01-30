@@ -15,4 +15,7 @@ public class Constants {
     public static final int RESET = 100;
     public static final int CHANGE = 1000;
 
+    public static final String PROVIDER_FACEBOOK = "facebook";
+    public static final String PROVIDER_PASSWORD = "password";
+
 }

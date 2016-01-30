@@ -1,6 +1,5 @@
 package com.example.benjaminlize.yourvoiceheard.main.view;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -12,17 +11,11 @@ import android.widget.ListView;
 import com.example.benjaminlize.yourvoiceheard.main.presenter.MainPresenter;
 import com.example.benjaminlize.yourvoiceheard.main.presenter.MainPresenterImpl;
 import com.example.benjaminlize.yourvoiceheard.petition.Petition;
-import com.example.benjaminlize.yourvoiceheard.utils.PetitionsDisplayAdapter;
 import com.example.benjaminlize.yourvoiceheard.R;
 import com.example.benjaminlize.yourvoiceheard.utils.Utilities;
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

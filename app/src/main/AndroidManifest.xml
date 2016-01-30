@@ -62,7 +62,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".start.StartPage"
+            android:name=".start.view.StartPage"
             android:label="YourVoiceHeard"
             android:theme="@style/AppTheme">
             <intent-filter>s

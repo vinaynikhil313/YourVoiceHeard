@@ -4,8 +4,14 @@
     tools:context=".main.view.MainActivity">
     <item
         android:id="@+id/logout"
-        android:orderInCategory="10"
+        android:orderInCategory="20"
         android:title="Logout"
-        app:showAsAction="always"/>
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/settings"
+        android:orderInCategory="10"
+        android:title="Settings"
+        app:showAsAction="never"/>
 
 </menu>

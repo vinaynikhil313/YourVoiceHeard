@@ -1,4 +1,4 @@
-package com.example.benjaminlize.yourvoiceheard.utils;
+package com.example.benjaminlize.yourvoiceheard.main.view;
 
 import android.content.Context;
 import android.content.Intent;
