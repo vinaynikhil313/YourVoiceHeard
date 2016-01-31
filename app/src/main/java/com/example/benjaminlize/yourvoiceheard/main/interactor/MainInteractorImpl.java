@@ -38,6 +38,7 @@ public class MainInteractorImpl implements MainInteractor, ValueEventListener {
     @Override
     public void onDataChange (DataSnapshot dataSnapshot) {
         Log.i ("FIREBASE petitions : ", dataSnapshot.getChildrenCount () + "");
+        petitionList.clear ();
         for (DataSnapshot child : dataSnapshot.getChildren ()) {
             Petition p = child.getValue (Petition.class);
             petitionList.add (p);

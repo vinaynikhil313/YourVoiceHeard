@@ -5,45 +5,23 @@
               android:orientation="vertical"
               android:padding="20dp">
 
-    <TextView
-        android:id="@+id/textViewTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+    <include
+        layout="@layout/petition_title_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <TextView
-        android:id="@+id/textViewDescription"
+        android:id="@+id/petitionShortDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Medium Text"
+        android:layout_marginTop="20dp"
         android:textAppearance="?android:attr/textAppearanceMedium"/>
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/petitionImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@mipmap/ic_launcher"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="Sings:"
-            android:id="@+id/signsCount"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="Unsigns:"
-            android:id="@+id/unsignsCount"/>
-
-    </RelativeLayout>
 
 </LinearLayout>

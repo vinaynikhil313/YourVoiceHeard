@@ -1,5 +1,6 @@
 package com.example.benjaminlize.yourvoiceheard.main.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -47,9 +48,9 @@ public class PetitionsDisplayAdapter extends ArrayAdapter<Petition> {
         // Check if an existing view is being reused, otherwise inflate the view
 
         // Lookup view for data population
-        TextView title       = (TextView) convertView.findViewById(R.id.textViewTitle);
-        TextView description = (TextView) convertView.findViewById(R.id.textViewDescription);
-        ImageView imageView  = (ImageView) convertView.findViewById(R.id.imageView);
+        TextView title       = (TextView) convertView.findViewById(R.id.petitionTitle);
+        TextView description = (TextView) convertView.findViewById(R.id.petitionShortDescription);
+        ImageView imageView  = (ImageView) convertView.findViewById(R.id.petitionImage);
         TextView numSigns    = (TextView) convertView.findViewById(R.id.signsCount);
         TextView numUnsigns  = (TextView) convertView.findViewById(R.id.unsignsCount);
         // Populate the data into the template view using the data object
@@ -63,9 +64,9 @@ public class PetitionsDisplayAdapter extends ArrayAdapter<Petition> {
         convertView.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick (View v) {
-                Intent i = new Intent(getContext (), PetitionActivity.class);
+                Intent i = new Intent (getContext (), PetitionActivity.class);
                 i.putExtra ("petition", petition);
-                Log.i("DisplayAdapter", "Petition clicked");
+                Log.i ("DisplayAdapter", "Petition clicked");
                 getContext ().startActivity (i);
             }
         });

@@ -61,7 +61,7 @@ public class PetitionActivity extends YouTubeBaseActivity
 
         presenter = new PetitionPresenterImpl (this, uid, petition.getmUniqueId ());
 
-        title = (TextView) findViewById (R.id.petition_title);
+        title = (TextView) findViewById (R.id.petitionTitle);
         image = (ImageView) findViewById (R.id.petition_image);
         description = (TextView) findViewById (R.id.petition_long_description);
         sign = (Button) findViewById (R.id.button_sign);

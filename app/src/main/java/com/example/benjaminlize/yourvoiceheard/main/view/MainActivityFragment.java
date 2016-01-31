@@ -26,6 +26,9 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 
     MainPresenter presenter;
 
+    ListView listView;
+    PetitionsDisplayAdapter petitionsDisplayAdapter;
+
     public MainActivityFragment () {
     }
 
@@ -36,17 +39,30 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
                               Bundle savedInstanceState) {
         viewHolder = inflater.inflate (R.layout.fragment_main, container, false);
 
+        listView = (ListView) viewHolder.findViewById (R.id.listView);
+
         presenter = new MainPresenterImpl (this);
-        presenter.generatePetitionList ();
         Log.i(TAG, "Presenter created and called");
         return viewHolder;
     }
 
+
+    @Override
+    public void onResume () {
+        super.onResume ();
+        presenter.generatePetitionList ();
+        /*if(petitionsDisplayAdapter != null){
+            petitionsDisplayAdapter.notifyDataSetChanged ();
+        }*/
+
+    }
+
     @Override
     public void setDisplayAdapter (List<Petition> petitionList) {
-        PetitionsDisplayAdapter petitionsDisplayAdapter = new PetitionsDisplayAdapter (getContext (), petitionList);
-
-        ListView listView = (ListView) viewHolder.findViewById (R.id.listView);
+        petitionsDisplayAdapter = new PetitionsDisplayAdapter (getContext (), petitionList);
+        //petitionsDisplayAdapter.notifyDataSetChanged ();
+        //listView.removeAllViewsInLayout ();
+        //petitionsDisplayAdapter.clear();
         listView.setAdapter (petitionsDisplayAdapter);
     }
 

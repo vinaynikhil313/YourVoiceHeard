@@ -10,20 +10,18 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <TextView
-            android:id="@+id/petition_title"
+        <include
+            layout="@layout/petition_title_fragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TITLE"
-            android:gravity="center"
-            android:textSize="30dp"
-            android:layout_marginTop="40dp"/>
+            android:layout_marginTop="30dp"/>
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/petition_image"
-            android:layout_marginTop="30dp"/>
+            android:layout_marginTop="30dp"
+            android:src="@mipmap/ic_launcher"/>
 
         <TextView
             android:layout_width="match_parent"
