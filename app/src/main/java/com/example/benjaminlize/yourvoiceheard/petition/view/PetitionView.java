@@ -7,6 +7,8 @@ public interface PetitionView {
 
     void showMessage(String message);
 
+    void updateSignsUnsignsCount(int numSigns, int numUnsigns);
+
     void showProgressDialog();
 
     void hideProgressDialog();

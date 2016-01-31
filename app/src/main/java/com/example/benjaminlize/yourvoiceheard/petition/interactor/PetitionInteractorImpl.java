@@ -65,14 +65,12 @@ public class PetitionInteractorImpl implements PetitionInteractor, ValueEventLis
          */
         if(previousSignUnsign == 0 || previousSignUnsign != flag) {
             if(checkPreviousSignUnsign () == 0) {
-                //Toast.makeText (context, "Thank you for your interest", Toast.LENGTH_SHORT).show ();
                 petition.newSignUnsign (flag);
-                listener.onFirstTimeSignUnsign ();
+                listener.onFirstTimeSignUnsign (petition.getmSigns (), petition.getmUnsigns ());
             }
             else {
-                //Toast.makeText (context, "You have changed your mind", Toast.LENGTH_SHORT).show ();
                 petition.changeOfMind (flag);
-                listener.onChangeOfMind ();
+                listener.onChangeOfMind (petition.getmSigns (), petition.getmUnsigns ());
             }
             petition.getmUsers ().put (uid, flag);
             user.getPetitions ().put (petition.getmUniqueId (), flag);
@@ -80,13 +78,6 @@ public class PetitionInteractorImpl implements PetitionInteractor, ValueEventLis
             firebase.child ("users").child (uid).setValue (user);
         }
         else{
-            /*String text = "You have already ";
-            if(flag == 1)
-                text += "signed";
-            else
-                text += "unsigned";
-            text += " this petition";
-            Toast.makeText (context, text, Toast.LENGTH_SHORT).show ();*/
             listener.onReClick ();
         }
     }
@@ -98,7 +89,6 @@ public class PetitionInteractorImpl implements PetitionInteractor, ValueEventLis
 
     @Override
     public void onDataChange (DataSnapshot dataSnapshot) {
-        //Log.i(TAG, dataSnapshot.toString ());
         if(dataSnapshot.getKey ().equals (petitionId)) {
             Log.i(TAG + " Petition ", dataSnapshot.toString ());
             petition = dataSnapshot.getValue (Petition.class);
@@ -107,6 +97,5 @@ public class PetitionInteractorImpl implements PetitionInteractor, ValueEventLis
             Log.i(TAG + " User ", dataSnapshot.toString ());
             user = dataSnapshot.getValue (User.class);
         }
-        //Log.i(TAG + " petition - ", petition.getmTitle ());
     }
 }

@@ -31,13 +31,15 @@ public class PetitionPresenterImpl implements PetitionPresenter, OnPetitionFinis
     }
 
     @Override
-    public void onChangeOfMind () {
+    public void onChangeOfMind (int numSigns, int numUnsigns) {
+        view.updateSignsUnsignsCount (numSigns, numUnsigns);
         view.hideProgressDialog ();
         view.showMessage ("You have changed your mind");
     }
 
     @Override
-    public void onFirstTimeSignUnsign () {
+    public void onFirstTimeSignUnsign (int numSigns, int numUnsigns) {
+        view.updateSignsUnsignsCount (numSigns, numUnsigns);
         view.hideProgressDialog ();
         view.showMessage ("Thank you for your response");
     }

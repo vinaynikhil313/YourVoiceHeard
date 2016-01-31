@@ -6,7 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -29,24 +32,25 @@ import com.squareup.picasso.Picasso;
 /**
  * Created by Vinay Nikhil Pabba on 18-01-2016.
  */
-public class PetitionActivity extends YouTubeBaseActivity
-        implements PetitionView, View.OnClickListener, YouTubePlayer.OnInitializedListener {
+public class PetitionActivity extends AppCompatActivity
+        implements PetitionView, View.OnClickListener {
 
     TextView title;
     ImageView image;
     TextView description;
     Button sign;
     Button unsign;
+    TextView signsCount;
+    TextView unsignsCount;
     Petition petition;
-
-    YouTubePlayerView youTubeView;
-    private static final int RECOVERY_DIALOG_REQUEST = 1;
 
     PetitionPresenter presenter;
 
     ProgressDialog progressDialog;
 
     private final String TAG = PetitionActivity.class.getSimpleName ();
+
+    int buttonPressed = 0;
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -66,9 +70,8 @@ public class PetitionActivity extends YouTubeBaseActivity
         description = (TextView) findViewById (R.id.petition_long_description);
         sign = (Button) findViewById (R.id.button_sign);
         unsign = (Button) findViewById (R.id.button_unsign);
-
-        youTubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
-        youTubeView.initialize(Constants.DEVELOPER_KEY, this);
+        signsCount = (TextView) findViewById (R.id.signsCount);
+        unsignsCount = (TextView) findViewById (R.id.unsignsCount);
 
         progressDialog = new ProgressDialog (this);
         progressDialog.setMessage ("Please Wait...");
@@ -78,6 +81,9 @@ public class PetitionActivity extends YouTubeBaseActivity
         title.setText (petition.getmTitle ());
         description.setText (petition.getmLongDescription ());
         Picasso.with (PetitionActivity.this).load ("http://www.butterflyhomehelp.com/images/BUTTERFLY-ORANGE-969x1024.jpg").into (image);
+        signsCount.setText ("Signs : " + petition.getmSigns ());
+        unsignsCount.setText ("UnSigns : " + petition.getmUnsigns ());
+
 
         Log.i (TAG + " UID ", uid);
 
@@ -89,19 +95,24 @@ public class PetitionActivity extends YouTubeBaseActivity
     @Override
     public void onClick (View v) {
         Log.i(TAG, "Button clicked is " + v.getId ());
-        int flag = 0;
         switch (v.getId ()){
             case R.id.button_sign:
-                flag = Constants.SIGN;
+                buttonPressed = Constants.SIGN;
                 break;
 
             case R.id.button_unsign:
-                flag = Constants.UNSIGN;
+                buttonPressed = Constants.UNSIGN;
                 break;
         }
 
-        presenter.buttonClicked(flag);
+        presenter.buttonClicked(buttonPressed);
 
+    }
+
+    @Override
+    public void updateSignsUnsignsCount (int numSigns, int numUnsigns) {
+        signsCount.setText("Signs : " + numSigns);
+        unsignsCount.setText ("Unsigns : " + numUnsigns);
     }
 
     @Override
@@ -117,43 +128,6 @@ public class PetitionActivity extends YouTubeBaseActivity
     @Override
     public void hideProgressDialog () {
         progressDialog.hide ();
-    }
-
-    @Override
-    public void onInitializationFailure(YouTubePlayer.Provider provider,
-                                        YouTubeInitializationResult errorReason) {
-        if (errorReason.isUserRecoverableError()) {
-            errorReason.getErrorDialog(this, RECOVERY_DIALOG_REQUEST).show();
-        } else {
-            String errorMessage = "Youtube Player Culd not be initialized";
-            Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
-        }
-    }
-
-    @Override
-    public void onInitializationSuccess(YouTubePlayer.Provider provider,
-                                        YouTubePlayer player, boolean wasRestored) {
-        if (!wasRestored) {
-
-            // loadVideo() will auto play video
-            // Use cueVideo() method, if you don't want to play it automatically
-            player.loadVideo(Constants.YOUTUBE_VIDEO_CODE);
-
-            // Hiding player controls
-            //player.setPlayerStyle(PlayerStyle.CHROMELESS);
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == RECOVERY_DIALOG_REQUEST) {
-            // Retry initialization if user performed a recovery action
-            getYouTubePlayerProvider().initialize(Constants.DEVELOPER_KEY, this);
-        }
-    }
-
-    private YouTubePlayer.Provider getYouTubePlayerProvider() {
-        return (YouTubePlayerView) findViewById(R.id.youtube_view);
     }
 
 }
