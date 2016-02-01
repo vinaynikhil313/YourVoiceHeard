@@ -1,76 +1,52 @@
 package com.example.benjaminlize.yourvoiceheard.petition.view;
 
-import android.app.Activity;
-import android.content.Intent;
+/**
+ * Created by Vinay Nikhil Pabba on 01-02-2016.
+ */
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.example.benjaminlize.yourvoiceheard.R;
 import com.example.benjaminlize.yourvoiceheard.utils.Constants;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayerFragment;
-import com.google.android.youtube.player.YouTubePlayerView;
+import com.google.android.youtube.player.YouTubePlayer.OnInitializedListener;
+import com.google.android.youtube.player.YouTubePlayer.Provider;
+import com.google.android.youtube.player.YouTubePlayerSupportFragment;
+public class YouTubeFragment extends YouTubePlayerSupportFragment {
 
-/**
- * Created by Vinay Nikhil Pabba on 31-01-2016.
- */
-public class YouTubeFragment extends YouTubePlayerFragment implements YouTubePlayer.OnInitializedListener {
+    private YouTubePlayer activePlayer;
 
-    View view;
+    public static YouTubeFragment newInstance(String url) {
 
-    YouTubePlayerView youTubeView;
+        YouTubeFragment youTubeFragment = new YouTubeFragment ();
 
-    private static final int RECOVERY_DIALOG_REQUEST = 1;
+        Bundle bundle = new Bundle();
+        bundle.putString("url", url);
 
-    @Override
-    public View onCreateView (LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
-        view = layoutInflater.inflate (R.layout.youtube_fragment, viewGroup, false);
+        youTubeFragment.setArguments (bundle);
 
-        youTubeView = (YouTubePlayerView) view.findViewById (R.id.youtube_view);
-        youTubeView.initialize (Constants.DEVELOPER_KEY, this);
+        youTubeFragment.init ();
 
-        return view;
+        return youTubeFragment;
     }
 
-    @Override
-    public void onInitializationFailure (YouTubePlayer.Provider provider,
-                                         YouTubeInitializationResult errorReason) {
-        if (errorReason.isUserRecoverableError ()) {
-            errorReason.getErrorDialog ((Activity) getContext (), RECOVERY_DIALOG_REQUEST).show ();
-        } else {
-            String errorMessage = "Youtube Player Culd not be initialized";
-            Toast.makeText (getContext (), errorMessage, Toast.LENGTH_LONG).show ();
-        }
+    private void init() {
+
+        initialize(Constants.DEVELOPER_KEY, new OnInitializedListener () {
+
+            @Override
+            public void onInitializationFailure (Provider arg0, YouTubeInitializationResult arg1) {
+            }
+
+            @Override
+            public void onInitializationSuccess (YouTubePlayer.Provider provider, YouTubePlayer player, boolean wasRestored) {
+                activePlayer = player;
+                activePlayer.setPlayerStyle (YouTubePlayer.PlayerStyle.DEFAULT);
+                if (! wasRestored) {
+                    activePlayer.loadVideo (getArguments ().getString ("url"), 0);
+
+                }
+            }
+        });
     }
 
-    @Override
-    public void onInitializationSuccess (YouTubePlayer.Provider provider,
-                                         YouTubePlayer player, boolean wasRestored) {
-        if (! wasRestored) {
-
-            // loadVideo() will auto play video
-            // Use cueVideo() method, if you don't want to play it automatically
-            player.loadVideo (Constants.YOUTUBE_VIDEO_CODE);
-
-            // Hiding player controls
-            //player.setPlayerStyle(PlayerStyle.CHROMELESS);
-        }
-    }
-
-    @Override
-    public void onActivityResult (int requestCode, int resultCode, Intent data) {
-        if (requestCode == RECOVERY_DIALOG_REQUEST) {
-            // Retry initialization if user performed a recovery action
-            getYouTubePlayerProvider ().initialize (Constants.DEVELOPER_KEY, this);
-        }
-        super.onActivityResult (requestCode, resultCode, data);
-    }
-
-    private YouTubePlayer.Provider getYouTubePlayerProvider () {
-        return (YouTubePlayerView) view.findViewById (R.id.youtube_view);
-    }
 }

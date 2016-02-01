@@ -1,15 +1,10 @@
 package com.example.benjaminlize.yourvoiceheard.petition.view;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,14 +14,11 @@ import android.widget.Toast;
 
 import com.example.benjaminlize.yourvoiceheard.R;
 import com.example.benjaminlize.yourvoiceheard.petition.Petition;
+import com.example.benjaminlize.yourvoiceheard.user.User;
 import com.example.benjaminlize.yourvoiceheard.utils.Constants;
-import com.example.benjaminlize.yourvoiceheard.utils.SignUnsignPetition;
 import com.example.benjaminlize.yourvoiceheard.petition.presenter.PetitionPresenter;
 import com.example.benjaminlize.yourvoiceheard.petition.presenter.PetitionPresenterImpl;
-import com.google.android.youtube.player.YouTubeBaseActivity;
-import com.google.android.youtube.player.YouTubeInitializationResult;
-import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayerView;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -48,6 +40,8 @@ public class PetitionActivity extends AppCompatActivity
 
     ProgressDialog progressDialog;
 
+    SharedPreferences sharedPreferences;
+
     private final String TAG = PetitionActivity.class.getSimpleName ();
 
     int buttonPressed = 0;
@@ -58,12 +52,15 @@ public class PetitionActivity extends AppCompatActivity
         setContentView (R.layout.petition_activity_main);
         Log.i (TAG, "Petition Activity created");
 
-        SharedPreferences sharedPreferences = getSharedPreferences (Constants.MY_PREF, Context.MODE_PRIVATE);
-        String uid = sharedPreferences.getString ("uid", "");
+        sharedPreferences = getSharedPreferences (Constants.MY_PREF, Context.MODE_PRIVATE);
+
+        User user = getUser();
 
         petition = (Petition) getIntent ().getSerializableExtra ("petition");
 
-        presenter = new PetitionPresenterImpl (this, uid, petition.getmUniqueId ());
+        presenter = new PetitionPresenterImpl (this, user, petition);
+
+        Log.i(TAG, "Initializing views");
 
         title = (TextView) findViewById (R.id.petitionTitle);
         image = (ImageView) findViewById (R.id.petition_image);
@@ -72,6 +69,11 @@ public class PetitionActivity extends AppCompatActivity
         unsign = (Button) findViewById (R.id.button_unsign);
         signsCount = (TextView) findViewById (R.id.signsCount);
         unsignsCount = (TextView) findViewById (R.id.unsignsCount);
+
+        Log.i (TAG, "Starting YouTube fragment");
+        YouTubeFragment youTubeFragment = YouTubeFragment.newInstance (Constants.YOUTUBE_VIDEO_CODE);
+        getSupportFragmentManager ().beginTransaction ().replace(R.id.youtube_frame, youTubeFragment).commit();
+        //getSupportFragmentManager().beginTransaction ().replace (R.id.youtube_fragment, youTubeFragment).commit ();
 
         progressDialog = new ProgressDialog (this);
         progressDialog.setMessage ("Please Wait...");
@@ -85,10 +87,19 @@ public class PetitionActivity extends AppCompatActivity
         unsignsCount.setText ("UnSigns : " + petition.getmUnsigns ());
 
 
-        Log.i (TAG + " UID ", uid);
+        Log.i (TAG + " UID ", user.getUid ());
 
         sign.setOnClickListener (this);
         unsign.setOnClickListener (this);
+
+    }
+
+    private User getUser () {
+
+        String userJson = sharedPreferences.getString ("user", "");
+        Gson gson = new Gson();
+        User user = gson.fromJson (userJson, User.class);
+        return user;
 
     }
 

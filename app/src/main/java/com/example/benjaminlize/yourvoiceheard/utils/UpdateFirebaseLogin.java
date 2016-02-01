@@ -23,6 +23,7 @@ public class UpdateFirebaseLogin {
         Map<String, Object> map = new HashMap<String, Object> ();
         map.put ("provider", authData.getProvider ());
         map.put ("accessToken", authData.getToken ());
+        map.put ("uid", authData.getUid ());
         map.putAll (authData.getProviderData ());
         //SharedPreferences sharedPreferences = .getSharedPreferences ("MyPref", Context.MODE_PRIVATE);
 

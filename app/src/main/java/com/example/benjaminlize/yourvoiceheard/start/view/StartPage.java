@@ -19,9 +19,11 @@ import com.example.benjaminlize.yourvoiceheard.start.presenter.StartPagePrevious
 import com.example.benjaminlize.yourvoiceheard.start.presenter.StartPagePresenter;
 import com.example.benjaminlize.yourvoiceheard.login.LoginActivity;
 import com.example.benjaminlize.yourvoiceheard.R;
+import com.example.benjaminlize.yourvoiceheard.user.User;
 import com.example.benjaminlize.yourvoiceheard.utils.Constants;
 import com.example.benjaminlize.yourvoiceheard.utils.Utilities;
 import com.facebook.FacebookSdk;
+import com.google.gson.Gson;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -69,7 +71,13 @@ public class StartPage extends Activity implements StartPageView{
     void checkPreviousPasswordLogin(){
         Log.i (TAG, "Checking previous password login");
         if(sharedPreferences.getString ("provider", "").equals ("password")){
-            String token = sharedPreferences.getString ("accessToken", "");
+            Log.i (TAG, "Provider is password");
+            Gson gson = new Gson ();
+            String userJson = sharedPreferences.getString ("user", "");
+            User user = gson.fromJson (userJson, User.class);
+            if(user == null)
+                return;
+            String token = user.getAccessToken (); //sharedPreferences.getString ("accessToken", "");
             Log.i(TAG + " Token ", token);
             if(!token.equals ("")) {
                 presenter.loginWithPassword (token);
@@ -80,13 +88,16 @@ public class StartPage extends Activity implements StartPageView{
     }
 
     @Override
-    public void writeToSharedPreferences (String provider, String uid, String accessToken) {
+    public void writeToSharedPreferences (String provider, User user) {
         SharedPreferences.Editor editor = sharedPreferences.edit ();
 
-        Log.i(TAG, provider + " " + uid + " " + accessToken);
+        Log.i(TAG, provider + " " + user.getUid ());
         editor.putString ("provider", provider);
-        editor.putString ("uid", uid);
-        editor.putString ("accessToken", accessToken);
+        Gson gson = new Gson ();
+        String userJson = gson.toJson (user);
+        editor.putString ("user", userJson);
+        //editor.putString ("uid", uid);
+        //editor.putString ("accessToken", accessToken);
         editor.commit ();
     }
 

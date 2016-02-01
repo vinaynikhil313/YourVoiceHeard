@@ -6,6 +6,7 @@ import com.example.benjaminlize.yourvoiceheard.petition.Petition;
 import com.example.benjaminlize.yourvoiceheard.petition.interactor.PetitionInteractor;
 import com.example.benjaminlize.yourvoiceheard.petition.interactor.PetitionInteractorImpl;
 import com.example.benjaminlize.yourvoiceheard.petition.view.PetitionView;
+import com.example.benjaminlize.yourvoiceheard.user.User;
 import com.example.benjaminlize.yourvoiceheard.utils.Utilities;
 
 /**
@@ -18,9 +19,9 @@ public class PetitionPresenterImpl implements PetitionPresenter, OnPetitionFinis
 
     String TAG = Utilities.getTag (this);
 
-    public PetitionPresenterImpl(PetitionView view, String uid, String petitionId){
+    public PetitionPresenterImpl(PetitionView view, User user, Petition petition){
         this.view = view;
-        interactor = new PetitionInteractorImpl (uid, petitionId);
+        interactor = new PetitionInteractorImpl (user.getUid (), petition.getmUniqueId ());
     }
 
     @Override

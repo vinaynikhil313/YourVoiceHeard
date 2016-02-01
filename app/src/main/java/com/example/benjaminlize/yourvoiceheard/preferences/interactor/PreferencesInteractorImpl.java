@@ -1,5 +1,7 @@
 package com.example.benjaminlize.yourvoiceheard.preferences.interactor;
 
+import android.util.Log;
+
 import com.example.benjaminlize.yourvoiceheard.preferences.presenter.OnPreferencesListGeneratedListener;
 import com.example.benjaminlize.yourvoiceheard.utils.Constants;
 import com.firebase.client.DataSnapshot;
@@ -7,8 +9,8 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Vinay Nikhil Pabba on 31-01-2016.
@@ -19,7 +21,7 @@ public class PreferencesInteractorImpl implements PreferencesInteractor, ValueEv
 
     OnPreferencesListGeneratedListener listener;
 
-    List<String> categories = new ArrayList<> ();
+    Map<String, String> categories = new HashMap<> ();
 
     @Override
     public void generateList (OnPreferencesListGeneratedListener listener) {
@@ -35,9 +37,12 @@ public class PreferencesInteractorImpl implements PreferencesInteractor, ValueEv
 
     @Override
     public void onDataChange (DataSnapshot dataSnapshot) {
+
         for(DataSnapshot child : dataSnapshot.getChildren ()){
-            categories.add((String) child.getValue ());
+
+            categories.put (child.getKey (), (String)child.getValue ());
         }
+        Log.i ("Preferences Interactor", categories.toString ());
         listener.onListGenerated (categories);
     }
 }

@@ -17,6 +17,8 @@ public class User {
     private String profileImageURL;
     private String provider;
     private String id;
+    Map<String, String> preferences = new HashMap<> ();
+    private String uid;
 
     public String getId () {
         return id;
@@ -87,5 +89,21 @@ public class User {
 
     public void setProvider (String provider) {
         this.provider = provider;
+    }
+
+    public Map<String, String> getPreferences () {
+        return preferences;
+    }
+
+    public void setPreferences (Map<String, String> preferences) {
+        this.preferences = preferences;
+    }
+
+    public String getUid () {
+        return uid;
+    }
+
+    public void setUid (String uid) {
+        this.uid = uid;
     }
 }

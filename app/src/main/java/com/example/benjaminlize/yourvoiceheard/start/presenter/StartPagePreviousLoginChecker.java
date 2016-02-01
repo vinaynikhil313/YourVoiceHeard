@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.benjaminlize.yourvoiceheard.start.interactor.StartPageInteractor;
 import com.example.benjaminlize.yourvoiceheard.start.interactor.StartPageInteractorImpl;
 import com.example.benjaminlize.yourvoiceheard.start.view.StartPageView;
+import com.example.benjaminlize.yourvoiceheard.user.User;
 import com.example.benjaminlize.yourvoiceheard.utils.Constants;
 import com.example.benjaminlize.yourvoiceheard.utils.Utilities;
 import com.facebook.AccessToken;
@@ -44,9 +45,10 @@ public class StartPagePreviousLoginChecker implements
     }
 
     @Override
-    public void onLoginSuccessful (String provider, String uid, String accessToken) {
+    public void onLoginSuccessful (String provider, User user) {
         view.disableLoginPage ();
-        view.writeToSharedPreferences (provider, uid, accessToken);
+        Log.i(TAG, "UID = " + user.getUid ());
+        view.writeToSharedPreferences (provider, user);
         view.openMainPage ();
     }
 

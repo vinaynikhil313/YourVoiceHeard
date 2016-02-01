@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.benjaminlize.yourvoiceheard.petition.Petition;
 import com.example.benjaminlize.yourvoiceheard.R;
 import com.example.benjaminlize.yourvoiceheard.petition.view.PetitionActivity;
+import com.example.benjaminlize.yourvoiceheard.user.User;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -74,4 +75,5 @@ public class PetitionsDisplayAdapter extends ArrayAdapter<Petition> {
         // Return the completed view to render on screen
         return convertView;
     }
+
 }

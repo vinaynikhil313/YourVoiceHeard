@@ -33,12 +33,9 @@
             android:textSize="20dp"
             android:layout_marginBottom="30dp"/>
 
-        <fragment
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/youtube_fragment"
-            tools:layout="@layout/youtube_fragment"
-            android:name="com.google.android.youtube.player.YouTubePlayerFragment"/>
+        <include layout="@layout/youtube_fragment_layout"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"/>
 
         <include layout="@layout/signing"/>
 

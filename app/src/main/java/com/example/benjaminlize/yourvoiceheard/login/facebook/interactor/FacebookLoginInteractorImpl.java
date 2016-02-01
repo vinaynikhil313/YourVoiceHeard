@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.benjaminlize.yourvoiceheard.login.facebook.presenter.OnFacebookLoginFinishedListener;
+import com.example.benjaminlize.yourvoiceheard.user.User;
 import com.example.benjaminlize.yourvoiceheard.utils.AuthenticateUser;
 import com.example.benjaminlize.yourvoiceheard.utils.Constants;
 import com.example.benjaminlize.yourvoiceheard.utils.UpdateFirebaseLogin;
@@ -12,8 +13,10 @@ import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.firebase.client.AuthData;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,7 +24,8 @@ import org.json.JSONObject;
 /**
  * Created by Vinay Nikhil Pabba on 27-01-2016.
  */
-public class FacebookLoginInteractorImpl implements FacebookLoginInteractor, Firebase.AuthResultHandler{
+public class FacebookLoginInteractorImpl implements FacebookLoginInteractor,
+        Firebase.AuthResultHandler, ValueEventListener {
 
     Firebase firebase = new Firebase(Constants.FIREBASE_REF);
     OnFacebookLoginFinishedListener listener;
@@ -42,15 +46,6 @@ public class FacebookLoginInteractorImpl implements FacebookLoginInteractor, Fir
                             firebase.authWithOAuthToken ("facebook", AccessToken.getCurrentAccessToken ().getToken (), FacebookLoginInteractorImpl.this);
                         }
 
-                        /*try {
-                            if(json != null){
-                                //Toast.makeText (getActivity (), "Welcome " + json.getString ("name"), Toast.LENGTH_LONG).show ();
-                                //AuthenticateUser.authWithFacebook (AccessToken.getCurrentAccessToken ().getToken (), getContext ());
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }*/
                     }
                 });
         Bundle parameters = new Bundle();
@@ -61,12 +56,26 @@ public class FacebookLoginInteractorImpl implements FacebookLoginInteractor, Fir
 
     @Override
     public void onAuthenticated (AuthData authData) {
-        listener.onFirebaseLoginSuccess (authData.getUid (), authData.getToken ());
+        //listener.onFirebaseLoginSuccess (authData.getUid (), authData.getToken ());
         UpdateFirebaseLogin.updateFirebase (authData);
+
+        firebase.child ("users").child (authData.getUid ()).addListenerForSingleValueEvent (this);
     }
 
     @Override
     public void onAuthenticationError (FirebaseError firebaseError) {
         listener.onFirebaseLoginFailure ();
+    }
+
+    @Override
+    public void onDataChange (DataSnapshot dataSnapshot) {
+        User user = dataSnapshot.getValue (User.class);
+        Log.i("FACEBOOK INTERACTOR", "UID = " + user.getUid ());
+        listener.onFirebaseLoginSuccess (user);
+    }
+
+    @Override
+    public void onCancelled (FirebaseError firebaseError) {
+
     }
 }

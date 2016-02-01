@@ -6,6 +6,7 @@ import com.example.benjaminlize.yourvoiceheard.login.facebook.interactor.Faceboo
 import com.example.benjaminlize.yourvoiceheard.login.facebook.interactor.FacebookLoginInteractorImpl;
 import com.example.benjaminlize.yourvoiceheard.login.facebook.view.FacebookLoginFragment;
 import com.example.benjaminlize.yourvoiceheard.login.facebook.view.FacebookLoginFragmentView;
+import com.example.benjaminlize.yourvoiceheard.user.User;
 import com.facebook.AccessToken;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -37,9 +38,9 @@ public class FacebookLoginPresenterImpl implements FacebookLoginPresenter,
     }
 
     @Override
-    public void onFirebaseLoginSuccess (String uid, String token) {
+    public void onFirebaseLoginSuccess (User user) {
         Log.i(TAG, "Firebase Facebook Login successful");
-        view.writeToSharedPrefernces (uid, token);
+        view.writeToSharedPrefernces (user);
         view.hideProgressDialog ();
         view.openMainPage ();
     }

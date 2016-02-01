@@ -6,6 +6,7 @@ import com.example.benjaminlize.yourvoiceheard.login.email.view.EmailLoginFragme
 import com.example.benjaminlize.yourvoiceheard.login.email.view.LoginActivityFragment;
 import com.example.benjaminlize.yourvoiceheard.login.email.interactor.EmailLoginInteractor;
 import com.example.benjaminlize.yourvoiceheard.login.email.interactor.EmailLoginInteractorImpl;
+import com.example.benjaminlize.yourvoiceheard.user.User;
 
 /**
  * Created by Vinay Nikhil Pabba on 21-01-2016.
@@ -42,9 +43,9 @@ public class EmailLoginPresenterImpl implements EmailLoginPresenter, OnEmailLogi
     }
 
     @Override
-    public void onSuccess (String uid, String token) {
-        loginActivityFragment.writeToSharedPreferences (uid, token);
-        Log.i ("EMAIL PRESENTER", uid + " " + token);
+    public void onSuccess (User user) {
+        loginActivityFragment.writeToSharedPreferences (user);
+        Log.i ("EMAIL PRESENTER", "UID = " + user.getId ());
         loginActivityFragment.hideProgressDialog ();
         loginActivityFragment.openMainPage ();
     }
