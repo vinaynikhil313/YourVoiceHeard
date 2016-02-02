@@ -99,8 +99,8 @@ public class LoginActivityFragment extends Fragment implements EmailLoginFragmen
     public void writeToSharedPreferences (User user) {
         SharedPreferences sharedPreferences = getContext ().getSharedPreferences (Constants.MY_PREF, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit ();
-        editor.putString ("provider", "password");
-        Log.i ("EMAIL VIEW", "UID = " + user.getId ());
+        //editor.putString ("provider", "password");
+        Log.i ("EMAIL VIEW", "UID = " + user.getUid ());
         Gson userGson = new Gson ();
         String userJson = userGson.toJson (user);
         editor.putString ("user", userJson);

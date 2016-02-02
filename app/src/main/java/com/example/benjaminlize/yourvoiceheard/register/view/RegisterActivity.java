@@ -17,7 +17,9 @@ import com.example.benjaminlize.yourvoiceheard.main.view.MainActivity;
 import com.example.benjaminlize.yourvoiceheard.register.presenter.RegisterPresenter;
 import com.example.benjaminlize.yourvoiceheard.register.presenter.RegisterPresenterImpl;
 import com.example.benjaminlize.yourvoiceheard.R;
+import com.example.benjaminlize.yourvoiceheard.user.User;
 import com.example.benjaminlize.yourvoiceheard.utils.Constants;
+import com.google.gson.Gson;
 
 /**
  * Created by Vinay Nikhil Pabba on 15-01-2016.
@@ -78,7 +80,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterActiv
     public void openHomePage () {
         Toast.makeText (RegisterActivity.this, "Welcome to YourVoiceHeard", Toast.LENGTH_SHORT).show ();
         startActivity (new Intent (RegisterActivity.this, MainActivity.class));
-        finish();
+        finish ();
     }
 
     @Override
@@ -87,14 +89,17 @@ public class RegisterActivity extends AppCompatActivity implements RegisterActiv
     }
 
     @Override
-    public void writeToSharedPreferences (String uid, String token) {
+    public void writeToSharedPreferences (User user) {
         SharedPreferences sharedPreferences = getSharedPreferences (Constants.MY_PREF, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit ();
-        editor.putString ("provider", "password");
-        Log.i ("EMAIL VIEW", uid + " " + token);
-        editor.putString ("uid", uid);
-        editor.putString ("accessToken", token);
+        //editor.putString ("provider", "password");
+        Log.i ("REGISTER VIEW", user.getUid ());
+        Gson gson = new Gson ();
+        String userJson = gson.toJson (user);
+        editor.putString ("user", userJson);
+        //editor.putString ("uid", uid);
+        //editor.putString ("accessToken", token);
         editor.commit ();
-        Log.i("Login UID", "The uid is - " + sharedPreferences.getString ("uid", ""));
+        //Log.i ("Login UID", "The uid is - " + sharedPreferences.getString ("uid", ""));
     }
 }

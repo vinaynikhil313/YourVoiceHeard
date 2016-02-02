@@ -4,6 +4,7 @@ import com.example.benjaminlize.yourvoiceheard.register.interactor.RegisterInter
 import com.example.benjaminlize.yourvoiceheard.register.interactor.RegisterInteractorImpl;
 import com.example.benjaminlize.yourvoiceheard.register.view.RegisterActivity;
 import com.example.benjaminlize.yourvoiceheard.register.view.RegisterActivityView;
+import com.example.benjaminlize.yourvoiceheard.user.User;
 import com.firebase.client.FirebaseError;
 
 /**
@@ -68,8 +69,8 @@ public class RegisterPresenterImpl implements RegisterPresenter, OnRegisterFinis
     }
 
     @Override
-    public void onSuccess (String uid, String token) {
-        view.writeToSharedPreferences (uid, token);
+    public void onSuccess (User user) {
+        view.writeToSharedPreferences (user);
         view.hideProgressBar ();
         view.openHomePage ();
     }

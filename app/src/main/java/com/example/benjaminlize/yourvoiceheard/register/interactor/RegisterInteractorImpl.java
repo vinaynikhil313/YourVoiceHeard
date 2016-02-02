@@ -4,11 +4,14 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.benjaminlize.yourvoiceheard.register.presenter.OnRegisterFinishedListener;
+import com.example.benjaminlize.yourvoiceheard.user.User;
 import com.example.benjaminlize.yourvoiceheard.utils.Constants;
 import com.example.benjaminlize.yourvoiceheard.utils.UpdateFirebaseLogin;
 import com.firebase.client.AuthData;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +21,8 @@ import java.util.Map;
  */
 public class RegisterInteractorImpl implements RegisterInteractor,
         Firebase.ValueResultHandler<Map<String, Object>>,
-        Firebase.AuthResultHandler{
+        Firebase.AuthResultHandler,
+        ValueEventListener {
 
     String email;
     String password;
@@ -59,12 +63,24 @@ public class RegisterInteractorImpl implements RegisterInteractor,
 
     @Override
     public void onAuthenticated (AuthData authData) {
-        listener.onSuccess (authData.getUid (), authData.getToken ());
+        //listener.onSuccess (authData.getUid (), authData.getToken ());
         UpdateFirebaseLogin.updateFirebase (authData);
+        firebase.child ("users").child (authData.getUid ()).addListenerForSingleValueEvent (this);
     }
 
     @Override
     public void onAuthenticationError (FirebaseError firebaseError) {
         listener.onFailure(firebaseError.getCode ());
+    }
+
+    @Override
+    public void onCancelled (FirebaseError firebaseError) {
+
+    }
+
+    @Override
+    public void onDataChange (DataSnapshot dataSnapshot) {
+        User user = dataSnapshot.getValue (User.class);
+        listener.onSuccess (user);
     }
 }

@@ -80,7 +80,7 @@ public class FacebookLoginFragment extends Fragment implements FacebookLoginFrag
     public void writeToSharedPrefernces (User user) {
         SharedPreferences sharedPreferences = getContext ().getSharedPreferences (Constants.MY_PREF, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit ();
-        editor.putString ("provider", Constants.PROVIDER_FACEBOOK);
+        //editor.putString ("provider", Constants.PROVIDER_FACEBOOK);
         Gson gson = new Gson ();
         String userJson = gson.toJson (user);
         editor.putString ("user", userJson);

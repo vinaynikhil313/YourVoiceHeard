@@ -47,9 +47,9 @@ public class MainActivity extends AppCompatActivity {
                 AuthenticateUser.unauth ();
                 SharedPreferences sharedPreferences = getSharedPreferences (Constants.MY_PREF, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit ();
-                editor.remove ("uid");
-                editor.remove ("provider");
-                editor.remove ("accessToken");
+                //editor.remove ("uid");
+                //editor.remove ("provider");
+                editor.remove ("user");
                 editor.commit ();
                 LoginManager.getInstance ().logOut ();
                 Intent i = new Intent (MainActivity.this, LoginActivity.class);

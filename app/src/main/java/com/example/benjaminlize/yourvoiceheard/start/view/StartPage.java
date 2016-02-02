@@ -68,7 +68,7 @@ public class StartPage extends Activity implements StartPageView{
 
     }
 
-    void checkPreviousPasswordLogin(){
+    void checkPreviousPasswordLogin1(){
         Log.i (TAG, "Checking previous password login");
         if(sharedPreferences.getString ("provider", "").equals ("password")){
             Log.i (TAG, "Provider is password");
@@ -82,6 +82,26 @@ public class StartPage extends Activity implements StartPageView{
             if(!token.equals ("")) {
                 presenter.loginWithPassword (token);
                 openLoginPageFlag = false;
+            }
+
+        }
+    }
+
+    void checkPreviousPasswordLogin(){
+        Log.i (TAG, "Checking previous password login");
+        String userJson = sharedPreferences.getString ("user", "");
+        if(!userJson.equals ("") && !userJson.isEmpty ()){
+            Log.i (TAG, "Provider is password");
+            Gson gson = new Gson ();
+            //String userJson = sharedPreferences.getString ("user", "");
+            User user = gson.fromJson (userJson, User.class);
+            if(user == null)
+                return;
+            String token = user.getAccessToken (); //sharedPreferences.getString ("accessToken", "");
+            Log.i(TAG + " Token ", token);
+            if(user.getProvider ().equals (Constants.PROVIDER_PASSWORD) && !token.equals ("")) {
+                presenter.loginWithPassword (token);
+                disableLoginPage ();
             }
 
         }

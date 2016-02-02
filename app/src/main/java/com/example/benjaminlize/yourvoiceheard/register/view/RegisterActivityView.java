@@ -1,5 +1,7 @@
 package com.example.benjaminlize.yourvoiceheard.register.view;
 
+import com.example.benjaminlize.yourvoiceheard.user.User;
+
 /**
  * Created by Vinay Nikhil Pabba on 27-01-2016.
  */
@@ -13,6 +15,6 @@ public interface RegisterActivityView {
 
     void hideProgressBar();
 
-    void writeToSharedPreferences(String uid, String token);
+    void writeToSharedPreferences(User user);
 
 }

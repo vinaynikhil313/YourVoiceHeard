@@ -74,7 +74,7 @@ public class EmailLoginInteractorImpl implements EmailLoginInteractor, Firebase.
     @Override
     public void onDataChange (DataSnapshot dataSnapshot) {
         User user = dataSnapshot.getValue (User.class);
-        Log.i("EMAIL INTERACTOR", "UID + " + user.getId ());
+        Log.i("EMAIL INTERACTOR", "UID + " + user.getUid ());
         listener.onSuccess (user);
     }
 }
