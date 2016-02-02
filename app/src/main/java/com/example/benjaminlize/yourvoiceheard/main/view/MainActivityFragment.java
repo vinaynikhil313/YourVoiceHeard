@@ -51,9 +51,6 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
     public void onResume () {
         super.onResume ();
         presenter.generatePetitionList ();
-        /*if(petitionsDisplayAdapter != null){
-            petitionsDisplayAdapter.notifyDataSetChanged ();
-        }*/
 
     }
 

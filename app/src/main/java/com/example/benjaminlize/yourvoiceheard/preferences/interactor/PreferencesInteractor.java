@@ -1,6 +1,7 @@
 package com.example.benjaminlize.yourvoiceheard.preferences.interactor;
 
-import com.example.benjaminlize.yourvoiceheard.preferences.presenter.OnPreferencesListGeneratedListener;
+import com.example.benjaminlize.yourvoiceheard.category.Category;
+import com.example.benjaminlize.yourvoiceheard.preferences.presenter.OnPreferencesFinishedListener;
 import com.example.benjaminlize.yourvoiceheard.user.User;
 
 /**
@@ -8,6 +9,8 @@ import com.example.benjaminlize.yourvoiceheard.user.User;
  */
 public interface PreferencesInteractor {
 
-    void generateList(OnPreferencesListGeneratedListener listener);
+    void generateList(OnPreferencesFinishedListener listener);
+
+    void checkAndUpdatePreferences(User user, Category category, boolean isChecked, OnPreferencesFinishedListener listener);
 
 }

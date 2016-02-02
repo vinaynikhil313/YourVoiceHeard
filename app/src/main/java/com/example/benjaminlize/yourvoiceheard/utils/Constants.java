@@ -21,4 +21,6 @@ public class Constants {
     public static final String DEVELOPER_KEY = "AIzaSyCFgHMgyIbQVGkiJs_6xMK8ZAUXX72f-Cc";
     public static final String YOUTUBE_VIDEO_CODE = "_oEA18Y8gM0";
 
+    public static final int MAX_PREFERENCES = 3;
+
 }
