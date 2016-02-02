@@ -37,4 +37,14 @@ public class MainPresenterImpl implements MainPresenter, OnMainFinishedListener 
         view.setDisplayAdapter (petitionList);
         Log.i(TAG, "List Created");
     }
+
+    @Override
+    public void onNewPetitionAdded (Petition petition) {
+        view.showNotification (petition);
+    }
+
+    @Override
+    public void onPetitionRemoved (Petition petition) {
+
+    }
 }

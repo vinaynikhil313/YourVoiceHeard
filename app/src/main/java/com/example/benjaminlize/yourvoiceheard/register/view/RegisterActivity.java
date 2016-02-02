@@ -14,6 +14,7 @@ import android.app.Fragment;
 import android.widget.Toast;
 
 import com.example.benjaminlize.yourvoiceheard.main.view.MainActivity;
+import com.example.benjaminlize.yourvoiceheard.preferences.view.PreferencesActivity;
 import com.example.benjaminlize.yourvoiceheard.register.presenter.RegisterPresenter;
 import com.example.benjaminlize.yourvoiceheard.register.presenter.RegisterPresenterImpl;
 import com.example.benjaminlize.yourvoiceheard.R;
@@ -79,7 +80,10 @@ public class RegisterActivity extends AppCompatActivity implements RegisterActiv
     @Override
     public void openHomePage () {
         Toast.makeText (RegisterActivity.this, "Welcome to YourVoiceHeard", Toast.LENGTH_SHORT).show ();
-        startActivity (new Intent (RegisterActivity.this, MainActivity.class));
+        Intent intent = new Intent(RegisterActivity.this, PreferencesActivity.class);
+        intent.putExtra ("caller",
+                this.getClass ().getSimpleName ());
+        startActivity (intent);
         finish ();
     }
 
@@ -92,14 +96,10 @@ public class RegisterActivity extends AppCompatActivity implements RegisterActiv
     public void writeToSharedPreferences (User user) {
         SharedPreferences sharedPreferences = getSharedPreferences (Constants.MY_PREF, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit ();
-        //editor.putString ("provider", "password");
         Log.i ("REGISTER VIEW", user.getUid ());
         Gson gson = new Gson ();
         String userJson = gson.toJson (user);
         editor.putString ("user", userJson);
-        //editor.putString ("uid", uid);
-        //editor.putString ("accessToken", token);
         editor.commit ();
-        //Log.i ("Login UID", "The uid is - " + sharedPreferences.getString ("uid", ""));
     }
 }

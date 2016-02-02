@@ -6,6 +6,7 @@ import com.example.benjaminlize.yourvoiceheard.category.Category;
 import com.example.benjaminlize.yourvoiceheard.preferences.interactor.PreferencesInteractor;
 import com.example.benjaminlize.yourvoiceheard.preferences.interactor.PreferencesInteractorImpl;
 import com.example.benjaminlize.yourvoiceheard.preferences.view.PreferencesFragment;
+import com.example.benjaminlize.yourvoiceheard.preferences.view.PreferencesView;
 import com.example.benjaminlize.yourvoiceheard.user.User;
 import com.example.benjaminlize.yourvoiceheard.utils.Constants;
 
@@ -19,7 +20,7 @@ public class PreferencesPresenterImpl implements PreferencesPresenter,
 
     int position;
 
-    PreferencesFragment view;
+    PreferencesView view;
 
     PreferencesInteractor interactor;
 

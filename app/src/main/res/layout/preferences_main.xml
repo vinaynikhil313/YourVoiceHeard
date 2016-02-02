@@ -6,12 +6,39 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Please choose 3 preferences at most"
+        android:textAllCaps="false"
+        android:textAlignment="center"
+        android:id="@+id/chooseText"/>
+
     <fragment
         android:id="@+id/preferencesListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:name="com.example.benjaminlize.yourvoiceheard.preferences.view.PreferencesFragment"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:layout="@layout/fragment_main"/>
+        tools:layout="@layout/fragment_main"
+        android:layout_marginTop="30dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Continue"
+        android:id="@+id/proceedButton"
+        android:layout_gravity="center"/>
 
 </LinearLayout>

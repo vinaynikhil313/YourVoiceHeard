@@ -2,6 +2,7 @@ package com.example.benjaminlize.yourvoiceheard.utils;
 
 import com.example.benjaminlize.yourvoiceheard.petition.Petition;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,6 +78,31 @@ public class Utilities {
         categories.add ("Poverty");
         categories.add ("Corruption");
         firebase.child ("categories").setValue (categories);
+    }
+
+    public static void deleteEmail(){
+        firebase.removeUser ("username@gmail.com", "password", new Firebase.ResultHandler () {
+            @Override
+            public void onSuccess () {
+
+            }
+
+            @Override
+            public void onError (FirebaseError firebaseError) {
+
+            }
+        });
+        firebase.removeUser ("username1@gmail.com", "password", new Firebase.ResultHandler () {
+            @Override
+            public void onSuccess () {
+
+            }
+
+            @Override
+            public void onError (FirebaseError firebaseError) {
+
+            }
+        });
     }
 
 }

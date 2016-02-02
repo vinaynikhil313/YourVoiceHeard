@@ -19,6 +19,7 @@ import com.example.benjaminlize.yourvoiceheard.login.email.presenter.EmailLoginP
 import com.example.benjaminlize.yourvoiceheard.login.email.presenter.EmailLoginPresenterImpl;
 import com.example.benjaminlize.yourvoiceheard.R;
 import com.example.benjaminlize.yourvoiceheard.main.view.MainActivity;
+import com.example.benjaminlize.yourvoiceheard.preferences.view.PreferencesActivity;
 import com.example.benjaminlize.yourvoiceheard.user.User;
 import com.example.benjaminlize.yourvoiceheard.utils.Constants;
 import com.google.gson.Gson;
@@ -42,6 +43,9 @@ public class LoginActivityFragment extends Fragment implements EmailLoginFragmen
 
     View viewGroup;
 
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
     public LoginActivityFragment(){
 
     }
@@ -50,6 +54,9 @@ public class LoginActivityFragment extends Fragment implements EmailLoginFragmen
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         viewGroup = inflater.inflate (R.layout.login_fragment_main, container, false);
+
+        sharedPreferences = getContext ().getSharedPreferences (Constants.MY_PREF, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit ();
 
         emailLoginPresenter = new EmailLoginPresenterImpl (this);
 
@@ -91,21 +98,21 @@ public class LoginActivityFragment extends Fragment implements EmailLoginFragmen
     }
 
     @Override
-    public void onActivityResult (int requestCode, int resultCode, Intent data) {
-        super.onActivityResult (requestCode, resultCode, data);
+    public void openPreferencesPage () {
+        Toast.makeText (getContext (), "Please select at least 1 category", Toast.LENGTH_SHORT).show ();
+        Intent intent = new Intent(getContext (), PreferencesActivity.class);
+        intent.putExtra ("caller",
+                getContext ().getClass ().getSimpleName ());
+        startActivity (intent);
+        getActivity ().finish ();
     }
 
     @Override
     public void writeToSharedPreferences (User user) {
-        SharedPreferences sharedPreferences = getContext ().getSharedPreferences (Constants.MY_PREF, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit ();
-        //editor.putString ("provider", "password");
         Log.i ("EMAIL VIEW", "UID = " + user.getUid ());
         Gson userGson = new Gson ();
         String userJson = userGson.toJson (user);
         editor.putString ("user", userJson);
-        //editor.putString ("uid", uid);
-        //editor.putString ("accessToken", token);
         editor.commit ();
         Log.i("Login UID", "The uid is - " + sharedPreferences.getString ("user", ""));
     }

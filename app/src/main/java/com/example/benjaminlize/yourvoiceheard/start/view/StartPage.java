@@ -52,6 +52,7 @@ public class StartPage extends Activity implements StartPageView{
         super.onCreate (savedInstanceState);
 
         displayHashKey ();
+        //Utilities.deleteEmail ();
 
         presenter = new StartPagePreviousLoginChecker (this);
 

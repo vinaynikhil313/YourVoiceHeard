@@ -50,7 +50,11 @@ public class SettingsFragment extends Fragment {
 
     private void openPreferences () {
 
-        startActivity (new Intent(getContext (), PreferencesActivity.class));
+        Intent intent = new Intent(getContext (), PreferencesActivity.class);
+        intent.putExtra("caller",
+                getContext ().getClass ().getSimpleName ());
+        startActivity(intent);
+        //startActivity (new Intent(getContext (), PreferencesActivity.class));
 
     }
 }

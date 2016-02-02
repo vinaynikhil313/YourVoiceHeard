@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -50,6 +51,12 @@ public class PetitionActivity extends AppCompatActivity
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.petition_activity_main);
+
+        Toolbar toolbar = (Toolbar) findViewById (R.id.petitionToolbar);
+        setSupportActionBar (toolbar);
+
+        getSupportActionBar ().setDisplayHomeAsUpEnabled (true);
+
         Log.i (TAG, "Petition Activity created");
 
         sharedPreferences = getSharedPreferences (Constants.MY_PREF, Context.MODE_PRIVATE);
@@ -70,11 +77,6 @@ public class PetitionActivity extends AppCompatActivity
         signsCount = (TextView) findViewById (R.id.signsCount);
         unsignsCount = (TextView) findViewById (R.id.unsignsCount);
 
-        Log.i (TAG, "Starting YouTube fragment");
-        YouTubeFragment youTubeFragment = YouTubeFragment.newInstance (Constants.YOUTUBE_VIDEO_CODE);
-        getSupportFragmentManager ().beginTransaction ().replace(R.id.youtube_frame, youTubeFragment).commit();
-        //getSupportFragmentManager().beginTransaction ().replace (R.id.youtube_fragment, youTubeFragment).commit ();
-
         progressDialog = new ProgressDialog (this);
         progressDialog.setMessage ("Please Wait...");
         progressDialog.setProgressStyle (ProgressDialog.STYLE_SPINNER);
@@ -85,6 +87,9 @@ public class PetitionActivity extends AppCompatActivity
         Picasso.with (PetitionActivity.this).load ("http://www.butterflyhomehelp.com/images/BUTTERFLY-ORANGE-969x1024.jpg").into (image);
         signsCount.setText ("Signs : " + petition.getmSigns ());
         unsignsCount.setText ("UnSigns : " + petition.getmUnsigns ());
+        Log.i (TAG, "Starting YouTube fragment");
+        YouTubeFragment youTubeFragment = YouTubeFragment.newInstance (Constants.YOUTUBE_VIDEO_CODE);
+        getSupportFragmentManager ().beginTransaction ().replace(R.id.youtube_frame, youTubeFragment).commit ();
 
 
         Log.i (TAG + " UID ", user.getUid ());

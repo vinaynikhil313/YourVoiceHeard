@@ -1,6 +1,7 @@
 package com.example.benjaminlize.yourvoiceheard.preferences.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -11,12 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.benjaminlize.yourvoiceheard.R;
 import com.example.benjaminlize.yourvoiceheard.category.Category;
+import com.example.benjaminlize.yourvoiceheard.main.view.MainActivity;
 import com.example.benjaminlize.yourvoiceheard.preferences.presenter.PreferencesPresenter;
 import com.example.benjaminlize.yourvoiceheard.preferences.presenter.PreferencesPresenterImpl;
 import com.example.benjaminlize.yourvoiceheard.user.User;
@@ -34,6 +38,8 @@ public class PreferencesFragment extends Fragment implements PreferencesView {
     PreferencesPresenter presenter;
 
     ListView listView;
+
+
 
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,15 +71,6 @@ public class PreferencesFragment extends Fragment implements PreferencesView {
     public void onListGenerated (final List<Category> categories) {
         CategoriesListAdapter adapter = new CategoriesListAdapter (getContext (), categories, getUser (), presenter);
         listView.setAdapter (adapter);
-
-        /*listView.setOnItemClickListener (new AdapterView.OnItemClickListener () {
-            @Override
-            public void onItemClick (AdapterView<?> parent, View view, int position, long id) {
-                String main = listView.getSelectedItem().toString();
-                Log.i ("Preferences Fragment" , main);
-                presenter.changePreferences (getUser (), position, categories.get (position), ((CheckBox) view).isChecked ());
-            }
-        });*/
     }
 
     @Override
@@ -88,30 +85,14 @@ public class PreferencesFragment extends Fragment implements PreferencesView {
 
     }
 
-    private View getViewByPosition(int pos) {
-        final int firstListItemPosition = listView.getFirstVisiblePosition ();
-        final int lastListItemPosition = firstListItemPosition + listView.getChildCount() - 1;
-
-        Log.i("PreferencesFragment", firstListItemPosition + " " + lastListItemPosition + " " + pos);
-
-        if (pos < firstListItemPosition || pos > lastListItemPosition ) {
-            return listView.getAdapter().getView(pos, null, listView);
-        } else {
-            final int childIndex = pos - firstListItemPosition;
-            Log.i("PreferencesFragment", ((Category)listView.getAdapter ().getItem (childIndex)).getName ());
-            return listView.getChildAt(childIndex);
-        }
-    }
-
     @Override
     public void unCheck (int position, String message) {
-        //((CheckBox)getViewByPosition (position)).setChecked (false);
-        ((CheckBox) getViewByPosition (position).findViewById (R.id.checkBox)).setChecked (false);
-
+        ((CheckBox) listView.getChildAt (position).findViewById (R.id.checkBox)).setChecked (false);
         showMessage (message);
     }
 
     private void showMessage (String message) {
         Toast.makeText (getContext (), message, Toast.LENGTH_SHORT).show ();
     }
+
 }

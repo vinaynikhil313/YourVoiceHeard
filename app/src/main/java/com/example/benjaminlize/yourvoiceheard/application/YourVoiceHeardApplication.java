@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.example.benjaminlize.yourvoiceheard.utils.Constants;
 import com.facebook.FacebookSdk;
 import com.firebase.client.Firebase;
 
@@ -19,6 +20,9 @@ public class YourVoiceHeardApplication extends Application {
         super.onCreate ();
         FacebookSdk.sdkInitialize (getApplicationContext ());
         Firebase.setAndroidContext (this);
+        Firebase.getDefaultConfig().setPersistenceEnabled (true);
+        Firebase scoresRef = new Firebase(Constants.FIREBASE_REF);
+        scoresRef.keepSynced (true);
     }
 
 }

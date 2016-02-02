@@ -6,6 +6,7 @@ import com.example.benjaminlize.yourvoiceheard.main.presenter.OnMainFinishedList
 import com.example.benjaminlize.yourvoiceheard.petition.Petition;
 import com.example.benjaminlize.yourvoiceheard.user.User;
 import com.example.benjaminlize.yourvoiceheard.utils.Constants;
+import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -18,13 +19,15 @@ import java.util.Map;
 /**
  * Created by Vinay Nikhil Pabba on 29-01-2016.
  */
-public class MainInteractorImpl implements MainInteractor, ValueEventListener {
+public class MainInteractorImpl implements MainInteractor, ValueEventListener, ChildEventListener {
 
     OnMainFinishedListener listener;
 
     User user;
 
     List<Petition> petitionList = new ArrayList<Petition> ();
+
+    static long petitionsCount = 0;
 
     Firebase firebase = new Firebase(Constants.FIREBASE_REF);
 
@@ -42,20 +45,54 @@ public class MainInteractorImpl implements MainInteractor, ValueEventListener {
 
     @Override
     public void onDataChange (DataSnapshot dataSnapshot) {
-        Log.i ("FIREBASE petitions : ", dataSnapshot.getChildrenCount () + "");
+        petitionsCount = dataSnapshot.getChildrenCount ();
+        firebase.child ("petitions").addChildEventListener (this);
+        Log.i ("FIREBASE petitions : ", petitionsCount + "");
         Map<String, String> userPreferences = user.getPreferences ();
         petitionList.clear ();
         for (DataSnapshot child : dataSnapshot.getChildren ()) {
             Petition p = child.getValue (Petition.class);
-            if(userPreferences.containsKey (p.getmCategory ()) || userPreferences.size () == 0)
+            if(userPreferences.containsKey (p.getmCategory ()))
                 petitionList.add (p);
         }
-
         listener.onPetitionsListGenerated (petitionList);
 
-        /*PetitionsDisplayAdapter petitionsDisplayAdapter = new PetitionsDisplayAdapter (getContext (), petitionsArray);
+    }
 
-        ListView listView = (ListView) viewHolder.findViewById (R.id.mainListView);
-        listView.setAdapter (petitionsDisplayAdapter);*/
+    private static long currentCount = 0;
+
+    @Override
+    public void onChildAdded (DataSnapshot dataSnapshot, String s) {
+        Log.i("MainInteractor", "Unknown String = " + s);
+
+        Petition newPetition = dataSnapshot.getValue (Petition.class);
+        Log.i("MainInteractor", "New PetitionID " + newPetition.getmUniqueId ());
+        currentCount++;
+        if(currentCount > petitionsCount){
+            //listener.onNewPetitionAdded(newPetition);
+            petitionsCount++;
+            listener.onNewPetitionAdded (newPetition);
+        }
+        Log.i("MainInteractor", "New currentCount =  " + currentCount + " " + petitionsCount);
+
+    }
+
+    @Override
+    public void onChildChanged (DataSnapshot dataSnapshot, String s) {
+
+    }
+
+    @Override
+    public void onChildMoved (DataSnapshot dataSnapshot, String s) {
+
+    }
+
+    @Override
+    public void onChildRemoved (DataSnapshot dataSnapshot) {
+        Petition removedPetition = dataSnapshot.getValue (Petition.class);
+        Log.i("MainInteractor", "Removed PetitionID " + removedPetition.getmUniqueId ());
+        if(currentCount == petitionsCount)
+            petitionsCount--;
+        currentCount--;
     }
 }

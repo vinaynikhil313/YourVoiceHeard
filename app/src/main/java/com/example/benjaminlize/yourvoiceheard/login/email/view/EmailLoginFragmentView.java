@@ -19,4 +19,6 @@ public interface EmailLoginFragmentView {
 
     void hideProgressDialog();
 
+    void openPreferencesPage();
+
 }

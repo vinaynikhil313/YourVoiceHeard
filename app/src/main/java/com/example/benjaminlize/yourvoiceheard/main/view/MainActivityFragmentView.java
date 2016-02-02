@@ -11,4 +11,6 @@ public interface MainActivityFragmentView {
 
     void setDisplayAdapter(List<Petition> petitionList);
 
+    void showNotification(Petition petition);
+
 }

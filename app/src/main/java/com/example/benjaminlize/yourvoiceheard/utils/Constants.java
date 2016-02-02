@@ -23,4 +23,5 @@ public class Constants {
 
     public static final int MAX_PREFERENCES = 3;
 
+    public static final String NOTIF_ID = "MyNotif";
 }

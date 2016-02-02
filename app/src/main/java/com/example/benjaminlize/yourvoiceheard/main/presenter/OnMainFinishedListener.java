@@ -11,4 +11,8 @@ public interface OnMainFinishedListener {
 
     void onPetitionsListGenerated(List<Petition> petitionList);
 
+    void onNewPetitionAdded(Petition petition);
+
+    void onPetitionRemoved(Petition petition);
+
 }
