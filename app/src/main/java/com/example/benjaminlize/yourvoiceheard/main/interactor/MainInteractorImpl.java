@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.benjaminlize.yourvoiceheard.main.presenter.OnMainFinishedListener;
 import com.example.benjaminlize.yourvoiceheard.petition.Petition;
+import com.example.benjaminlize.yourvoiceheard.user.User;
 import com.example.benjaminlize.yourvoiceheard.utils.Constants;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -12,6 +13,7 @@ import com.firebase.client.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Vinay Nikhil Pabba on 29-01-2016.
@@ -19,6 +21,8 @@ import java.util.List;
 public class MainInteractorImpl implements MainInteractor, ValueEventListener {
 
     OnMainFinishedListener listener;
+
+    User user;
 
     List<Petition> petitionList = new ArrayList<Petition> ();
 
@@ -30,7 +34,8 @@ public class MainInteractorImpl implements MainInteractor, ValueEventListener {
     }
 
     @Override
-    public void generatePetitionList(OnMainFinishedListener listener){
+    public void generatePetitionList(User user, OnMainFinishedListener listener){
+        this.user = user;
         this.listener = listener;
         firebase.child ("petitions").addListenerForSingleValueEvent (this);
     }
@@ -38,10 +43,12 @@ public class MainInteractorImpl implements MainInteractor, ValueEventListener {
     @Override
     public void onDataChange (DataSnapshot dataSnapshot) {
         Log.i ("FIREBASE petitions : ", dataSnapshot.getChildrenCount () + "");
+        Map<String, String> userPreferences = user.getPreferences ();
         petitionList.clear ();
         for (DataSnapshot child : dataSnapshot.getChildren ()) {
             Petition p = child.getValue (Petition.class);
-            petitionList.add (p);
+            if(userPreferences.containsKey (p.getmCategory ()) || userPreferences.size () == 0)
+                petitionList.add (p);
         }
 
         listener.onPetitionsListGenerated (petitionList);

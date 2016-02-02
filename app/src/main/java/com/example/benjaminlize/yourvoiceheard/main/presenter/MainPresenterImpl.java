@@ -6,6 +6,7 @@ import com.example.benjaminlize.yourvoiceheard.main.interactor.MainInteractor;
 import com.example.benjaminlize.yourvoiceheard.main.interactor.MainInteractorImpl;
 import com.example.benjaminlize.yourvoiceheard.main.view.MainActivityFragmentView;
 import com.example.benjaminlize.yourvoiceheard.petition.Petition;
+import com.example.benjaminlize.yourvoiceheard.user.User;
 import com.example.benjaminlize.yourvoiceheard.utils.Utilities;
 
 import java.util.List;
@@ -26,8 +27,8 @@ public class MainPresenterImpl implements MainPresenter, OnMainFinishedListener 
     }
 
     @Override
-    public void generatePetitionList(){
-        interactor.generatePetitionList (this);
+    public void generatePetitionList(User user){
+        interactor.generatePetitionList (user, this);
         Log.i (TAG, "Interactor called");
     }
 
