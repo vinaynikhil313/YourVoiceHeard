@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.benjaminlize.yourvoiceheard.login.facebook.presenter.FacebookLoginPresenterImpl;
 import com.example.benjaminlize.yourvoiceheard.main.view.MainActivity;
 import com.example.benjaminlize.yourvoiceheard.R;
+import com.example.benjaminlize.yourvoiceheard.preferences.view.PreferencesActivity;
 import com.example.benjaminlize.yourvoiceheard.user.User;
 import com.example.benjaminlize.yourvoiceheard.utils.Constants;
 import com.facebook.CallbackManager;
@@ -73,19 +74,25 @@ public class FacebookLoginFragment extends Fragment implements FacebookLoginFrag
     public void openMainPage () {
         Toast.makeText (getContext (), "Login Successful", Toast.LENGTH_SHORT).show ();
         startActivity (new Intent(getContext (), MainActivity.class));
-        ((Activity) getContext ()).finish ();
+        getActivity ().finish ();
+    }
+
+    @Override
+    public void openPreferencesPage () {
+        Toast.makeText (getContext (), "Please select your preferences", Toast.LENGTH_LONG).show ();
+        Intent i = new Intent(getContext (), PreferencesActivity.class);
+        i.putExtra ("caller", getActivity ().getClass ().getSimpleName ());
+        startActivity (i);
+        getActivity ().finish ();
     }
 
     @Override
     public void writeToSharedPrefernces (User user) {
         SharedPreferences sharedPreferences = getContext ().getSharedPreferences (Constants.MY_PREF, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit ();
-        //editor.putString ("provider", Constants.PROVIDER_FACEBOOK);
         Gson gson = new Gson ();
         String userJson = gson.toJson (user);
         editor.putString ("user", userJson);
-        //editor.putString ("uid", uid);
-        //editor.putString ("accessToken", token);
         editor.commit ();
     }
 

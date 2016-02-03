@@ -9,6 +9,8 @@ public interface FacebookLoginFragmentView {
 
     void openMainPage();
 
+    void openPreferencesPage();
+
     void onError();
 
     void writeToSharedPrefernces(User user);

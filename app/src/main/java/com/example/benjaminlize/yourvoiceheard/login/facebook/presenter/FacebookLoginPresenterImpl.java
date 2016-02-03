@@ -32,20 +32,6 @@ public class FacebookLoginPresenterImpl implements FacebookLoginPresenter,
     }
 
     @Override
-    public void onFirebaseLoginFailure () {
-        view.hideProgressDialog ();
-        view.onError ();
-    }
-
-    @Override
-    public void onFirebaseLoginSuccess (User user) {
-        Log.i(TAG, "Firebase Facebook Login successful");
-        view.writeToSharedPrefernces (user);
-        view.hideProgressDialog ();
-        view.openMainPage ();
-    }
-
-    @Override
     public void onCancel () {
 
     }
@@ -66,4 +52,23 @@ public class FacebookLoginPresenterImpl implements FacebookLoginPresenter,
             interactor.requestData (this);
         }
     }
+
+    @Override
+    public void onFirebaseLoginFailure () {
+        view.hideProgressDialog ();
+        view.onError ();
+    }
+
+    @Override
+    public void onFirebaseLoginSuccess (User user) {
+        Log.i (TAG, "Firebase Facebook Login successful");
+        view.writeToSharedPrefernces (user);
+        view.hideProgressDialog ();
+
+        if(user.getPreferences ().size () > 0)
+            view.openMainPage ();
+        else
+            view.openPreferencesPage ();
+    }
+
 }
