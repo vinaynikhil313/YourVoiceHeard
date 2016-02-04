@@ -1,7 +1,6 @@
-package com.example.benjaminlize.yourvoiceheard.petition;
+package com.example.benjaminlize.yourvoiceheard.petitiondetails;
 
 import com.example.benjaminlize.yourvoiceheard.utils.Constants;
-import com.example.benjaminlize.yourvoiceheard.utils.SignUnsignPetition;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -23,6 +22,16 @@ public class Petition implements Serializable{
     private int mSigns;
     private int mUnsigns;
     private Map<String, Integer> mUsers = new HashMap<String, Integer> ();
+
+    public Petition (String mCategory, String mImageUrl, String mLongDescription, String mShortDescription, String mTitle, String mUniqueId, String mVideoUrl) {
+        this.mCategory = mCategory;
+        this.mImageUrl = mImageUrl;
+        this.mLongDescription = mLongDescription;
+        this.mShortDescription = mShortDescription;
+        this.mTitle = mTitle;
+        this.mUniqueId = mUniqueId;
+        this.mVideoUrl = mVideoUrl;
+    }
 
     public String getmCategory () {
         return mCategory;

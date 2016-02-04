@@ -1,13 +1,13 @@
-package com.example.benjaminlize.yourvoiceheard.main.presenter;
+package com.example.benjaminlize.yourvoiceheard.petitions.presenter;
 
-import com.example.benjaminlize.yourvoiceheard.petition.Petition;
+import com.example.benjaminlize.yourvoiceheard.petitiondetails.Petition;
 
 import java.util.List;
 
 /**
  * Created by Vinay Nikhil Pabba on 29-01-2016.
  */
-public interface OnMainFinishedListener {
+public interface OnPetitionsListFinishedListener {
 
     void onPetitionsListGenerated(List<Petition> petitionList);
 

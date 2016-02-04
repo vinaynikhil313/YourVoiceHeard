@@ -1,27 +1,27 @@
-package com.example.benjaminlize.yourvoiceheard.petition.presenter;
+package com.example.benjaminlize.yourvoiceheard.petitiondetails.presenter;
 
 import android.util.Log;
 
-import com.example.benjaminlize.yourvoiceheard.petition.Petition;
-import com.example.benjaminlize.yourvoiceheard.petition.interactor.PetitionInteractor;
-import com.example.benjaminlize.yourvoiceheard.petition.interactor.PetitionInteractorImpl;
-import com.example.benjaminlize.yourvoiceheard.petition.view.PetitionView;
+import com.example.benjaminlize.yourvoiceheard.petitiondetails.Petition;
+import com.example.benjaminlize.yourvoiceheard.petitiondetails.interactor.PetitionDetailsInteractor;
+import com.example.benjaminlize.yourvoiceheard.petitiondetails.interactor.PetitionDetailsInteractorImpl;
+import com.example.benjaminlize.yourvoiceheard.petitiondetails.view.PetitionDetailsView;
 import com.example.benjaminlize.yourvoiceheard.user.User;
 import com.example.benjaminlize.yourvoiceheard.utils.Utilities;
 
 /**
  * Created by Vinay Nikhil Pabba on 30-01-2016.
  */
-public class PetitionPresenterImpl implements PetitionPresenter, OnPetitionFinishedListener {
+public class PetitionDetailsPresenterImpl implements PetitionDetailsPresenter, OnPetitionDetailsFinishedListener {
 
-    PetitionView view;
-    PetitionInteractor interactor;
+    PetitionDetailsView view;
+    PetitionDetailsInteractor interactor;
 
     String TAG = Utilities.getTag (this);
 
-    public PetitionPresenterImpl(PetitionView view, User user, Petition petition){
+    public PetitionDetailsPresenterImpl (PetitionDetailsView view, User user, Petition petition){
         this.view = view;
-        interactor = new PetitionInteractorImpl (user.getUid (), petition.getmUniqueId ());
+        interactor = new PetitionDetailsInteractorImpl (user.getUid (), petition.getmUniqueId ());
     }
 
     @Override

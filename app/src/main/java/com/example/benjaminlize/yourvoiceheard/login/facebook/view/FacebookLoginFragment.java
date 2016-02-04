@@ -1,6 +1,5 @@
 package com.example.benjaminlize.yourvoiceheard.login.facebook.view;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -15,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.benjaminlize.yourvoiceheard.login.facebook.presenter.FacebookLoginPresenterImpl;
-import com.example.benjaminlize.yourvoiceheard.main.view.MainActivity;
+import com.example.benjaminlize.yourvoiceheard.petitions.view.PetitionsActivity;
 import com.example.benjaminlize.yourvoiceheard.R;
 import com.example.benjaminlize.yourvoiceheard.preferences.view.PreferencesActivity;
 import com.example.benjaminlize.yourvoiceheard.user.User;
@@ -73,7 +72,7 @@ public class FacebookLoginFragment extends Fragment implements FacebookLoginFrag
     @Override
     public void openMainPage () {
         Toast.makeText (getContext (), "Login Successful", Toast.LENGTH_SHORT).show ();
-        startActivity (new Intent(getContext (), MainActivity.class));
+        startActivity (new Intent(getContext (), PetitionsActivity.class));
         getActivity ().finish ();
     }
 

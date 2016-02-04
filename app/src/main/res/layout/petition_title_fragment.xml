@@ -14,7 +14,7 @@
         android:text="Title"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/white"
-        android:textSize="40dp"/>
+        android:textSize="30dp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
             android:layout_alignParentLeft="true"
             android:text="Signs:"
             android:textColor="@color/white"
-            android:textSize="25dp"/>
+            android:textSize="20dp"/>
 
         <TextView
             android:id="@+id/unsignsCount"
@@ -37,7 +37,7 @@
             android:layout_alignParentRight="true"
             android:text="Unsigns:"
             android:textColor="@color/white"
-            android:textSize="25dp"/>
+            android:textSize="20dp"/>
 
     </RelativeLayout>
 

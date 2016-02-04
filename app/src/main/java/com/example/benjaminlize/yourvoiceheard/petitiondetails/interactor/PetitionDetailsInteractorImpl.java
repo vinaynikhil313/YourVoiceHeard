@@ -1,9 +1,9 @@
-package com.example.benjaminlize.yourvoiceheard.petition.interactor;
+package com.example.benjaminlize.yourvoiceheard.petitiondetails.interactor;
 
 import android.util.Log;
 
-import com.example.benjaminlize.yourvoiceheard.petition.Petition;
-import com.example.benjaminlize.yourvoiceheard.petition.presenter.OnPetitionFinishedListener;
+import com.example.benjaminlize.yourvoiceheard.petitiondetails.Petition;
+import com.example.benjaminlize.yourvoiceheard.petitiondetails.presenter.OnPetitionDetailsFinishedListener;
 import com.example.benjaminlize.yourvoiceheard.user.User;
 import com.example.benjaminlize.yourvoiceheard.utils.Constants;
 import com.example.benjaminlize.yourvoiceheard.utils.Utilities;
@@ -15,9 +15,9 @@ import com.firebase.client.ValueEventListener;
 /**
  * Created by Vinay Nikhil Pabba on 29-01-2016.
  */
-public class PetitionInteractorImpl implements PetitionInteractor, ValueEventListener {
+public class PetitionDetailsInteractorImpl implements PetitionDetailsInteractor, ValueEventListener {
 
-    OnPetitionFinishedListener listener;
+    OnPetitionDetailsFinishedListener listener;
 
     String uid;
     String petitionId;
@@ -29,7 +29,7 @@ public class PetitionInteractorImpl implements PetitionInteractor, ValueEventLis
     Petition petition;
     User user;
 
-    public PetitionInteractorImpl(String uid, String petitionId){
+    public PetitionDetailsInteractorImpl (String uid, String petitionId){
 
         firebase = new Firebase (Constants.FIREBASE_REF);
 
@@ -51,7 +51,7 @@ public class PetitionInteractorImpl implements PetitionInteractor, ValueEventLis
     }
 
     @Override
-    public void checkAndUpdateFirebase(int flag, OnPetitionFinishedListener listener){
+    public void checkAndUpdateFirebase(int flag, OnPetitionDetailsFinishedListener listener){
         Log.i(TAG, "Interactor checkupdate " + flag);
 
         this.listener = listener;

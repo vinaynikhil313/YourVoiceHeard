@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.example.benjaminlize.yourvoiceheard.login.email.presenter.EmailLoginPresenter;
 import com.example.benjaminlize.yourvoiceheard.login.email.presenter.EmailLoginPresenterImpl;
 import com.example.benjaminlize.yourvoiceheard.R;
-import com.example.benjaminlize.yourvoiceheard.main.view.MainActivity;
+import com.example.benjaminlize.yourvoiceheard.petitions.view.PetitionsActivity;
 import com.example.benjaminlize.yourvoiceheard.preferences.view.PreferencesActivity;
 import com.example.benjaminlize.yourvoiceheard.user.User;
 import com.example.benjaminlize.yourvoiceheard.utils.Constants;
@@ -93,7 +93,7 @@ public class LoginActivityFragment extends Fragment implements EmailLoginFragmen
     @Override
     public void openMainPage () {
         Toast.makeText (getContext (), "Login Successful", Toast.LENGTH_SHORT).show ();
-        startActivity (new Intent(getContext (), MainActivity.class));
+        startActivity (new Intent(getContext (), PetitionsActivity.class));
         ((Activity) getContext ()).finish ();
     }
 

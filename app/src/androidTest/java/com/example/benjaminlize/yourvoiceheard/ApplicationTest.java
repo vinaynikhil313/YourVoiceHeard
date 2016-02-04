@@ -4,7 +4,7 @@ import android.app.Application;
 import android.test.ApplicationTestCase;
 import android.util.Log;
 
-import com.example.benjaminlize.yourvoiceheard.petition.Petition;
+import com.example.benjaminlize.yourvoiceheard.petitiondetails.Petition;
 import com.example.benjaminlize.yourvoiceheard.utils.Utilities;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;

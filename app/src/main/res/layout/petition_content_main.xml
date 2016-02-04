@@ -15,27 +15,32 @@
             android:layout_height="wrap_content"/>
 
         <ImageView
+            android:id="@+id/petition_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/petition_image"
-            android:layout_marginTop="30dp"
+            android:layout_margin="30dp"
             android:src="@mipmap/ic_launcher"/>
 
         <TextView
+            android:id="@+id/petition_long_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/petition_long_description"
-            android:layout_marginTop="30dp"
+            android:layout_margin="20dp"
             android:text="Description"
             android:textAllCaps="false"
-            android:textSize="20dp"
-            android:layout_marginBottom="30dp"/>
+            android:textSize="20dp"/>
 
-        <include layout="@layout/youtube_fragment_layout"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"/>
+        <include
+            layout="@layout/youtube_fragment_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"/>
 
-        <include layout="@layout/signing"/>
+        <include
+            layout="@layout/signing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"/>
 
     </LinearLayout>
 </ScrollView>

@@ -3,6 +3,7 @@ package com.example.benjaminlize.yourvoiceheard.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
@@ -23,6 +24,14 @@ public class LoginActivity extends AppCompatActivity{
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.login_activity_main);
+
+        Toolbar toolbar = (Toolbar) findViewById (R.id.loginToolbar);
+        setSupportActionBar (toolbar);
+
+        getSupportActionBar ().setDisplayHomeAsUpEnabled (true);
+
+        getSupportActionBar ().setTitle ("Login");
+        toolbar.setTitleTextColor (0xFFFFFFFF);
 
         registerText = (TextView) findViewById (R.id.registerText);
         registerText.setOnClickListener (new View.OnClickListener () {

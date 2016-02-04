@@ -1,11 +1,11 @@
-package com.example.benjaminlize.yourvoiceheard.main.presenter;
+package com.example.benjaminlize.yourvoiceheard.petitions.presenter;
 
 import android.util.Log;
 
-import com.example.benjaminlize.yourvoiceheard.main.interactor.MainInteractor;
-import com.example.benjaminlize.yourvoiceheard.main.interactor.MainInteractorImpl;
-import com.example.benjaminlize.yourvoiceheard.main.view.MainActivityFragmentView;
-import com.example.benjaminlize.yourvoiceheard.petition.Petition;
+import com.example.benjaminlize.yourvoiceheard.petitions.interactor.PetitionsInteractor;
+import com.example.benjaminlize.yourvoiceheard.petitions.interactor.PetitionsInteractorImpl;
+import com.example.benjaminlize.yourvoiceheard.petitions.view.PetitionsActivityFragmentView;
+import com.example.benjaminlize.yourvoiceheard.petitiondetails.Petition;
 import com.example.benjaminlize.yourvoiceheard.user.User;
 import com.example.benjaminlize.yourvoiceheard.utils.Utilities;
 
@@ -14,16 +14,16 @@ import java.util.List;
 /**
  * Created by Vinay Nikhil Pabba on 29-01-2016.
  */
-public class MainPresenterImpl implements MainPresenter, OnMainFinishedListener {
+public class PetitionsPresenterImpl implements PetitionsPresenter, OnPetitionsListFinishedListener {
 
-    MainActivityFragmentView view;
-    MainInteractor interactor;
+    PetitionsActivityFragmentView view;
+    PetitionsInteractor interactor;
 
     String TAG = Utilities.getTag (this);
 
-    public MainPresenterImpl(MainActivityFragmentView view){
+    public PetitionsPresenterImpl (PetitionsActivityFragmentView view){
         this.view = view;
-        interactor = new MainInteractorImpl ();
+        interactor = new PetitionsInteractorImpl ();
     }
 
     @Override
@@ -41,6 +41,7 @@ public class MainPresenterImpl implements MainPresenter, OnMainFinishedListener 
     @Override
     public void onNewPetitionAdded (Petition petition) {
         view.showNotification (petition);
+        view.showMessage ("New Petition added. Please scroll below");
     }
 
     @Override

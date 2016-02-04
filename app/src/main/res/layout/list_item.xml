@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:padding="20dp">
+              android:orientation="vertical">
 
     <include
         layout="@layout/petition_title_fragment"
@@ -16,12 +15,15 @@
         android:layout_height="wrap_content"
         android:text="Medium Text"
         android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:textAppearance="?android:attr/textAppearanceMedium"/>
 
     <ImageView
         android:id="@+id/petitionImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@mipmap/ic_launcher"
+        android:layout_marginBottom="30dp"/>
 
 </LinearLayout>

@@ -14,14 +14,13 @@ import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.benjaminlize.yourvoiceheard.main.view.MainActivity;
+import com.example.benjaminlize.yourvoiceheard.petitions.view.PetitionsActivity;
 import com.example.benjaminlize.yourvoiceheard.start.presenter.StartPagePreviousLoginChecker;
 import com.example.benjaminlize.yourvoiceheard.start.presenter.StartPagePresenter;
 import com.example.benjaminlize.yourvoiceheard.login.LoginActivity;
 import com.example.benjaminlize.yourvoiceheard.R;
 import com.example.benjaminlize.yourvoiceheard.user.User;
 import com.example.benjaminlize.yourvoiceheard.utils.Constants;
-import com.example.benjaminlize.yourvoiceheard.utils.Utilities;
 import com.facebook.FacebookSdk;
 import com.google.gson.Gson;
 
@@ -174,7 +173,7 @@ public class StartPage extends Activity implements StartPageView{
     @Override
     public void openMainPage () {
         Log.i(TAG, "Opening Main Page");
-        startActivity (new Intent(StartPage.this, MainActivity.class));
+        startActivity (new Intent(StartPage.this, PetitionsActivity.class));
         finish();
     }
 

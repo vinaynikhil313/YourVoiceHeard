@@ -1,6 +1,5 @@
-package com.example.benjaminlize.yourvoiceheard.main.view;
+package com.example.benjaminlize.yourvoiceheard.petitions.view;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -11,10 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.benjaminlize.yourvoiceheard.petition.Petition;
+import com.example.benjaminlize.yourvoiceheard.petitiondetails.Petition;
 import com.example.benjaminlize.yourvoiceheard.R;
-import com.example.benjaminlize.yourvoiceheard.petition.view.PetitionActivity;
-import com.example.benjaminlize.yourvoiceheard.user.User;
+import com.example.benjaminlize.yourvoiceheard.petitiondetails.view.PetitionDetailsActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -23,9 +21,9 @@ import java.util.List;
  * Created by benjamin.lize on 19/12/2015.
  * Opens the individual petition page when a petition is clicked
  */
-public class PetitionsDisplayAdapter extends ArrayAdapter<Petition> {
+public class PetitionsListDisplayAdapter extends ArrayAdapter<Petition> {
 
-    public PetitionsDisplayAdapter (Context context, List<Petition> petitionArray) {
+    public PetitionsListDisplayAdapter (Context context, List<Petition> petitionArray) {
         super(context, 0, petitionArray);
     }
 
@@ -59,13 +57,13 @@ public class PetitionsDisplayAdapter extends ArrayAdapter<Petition> {
         description.setText(petition.getmShortDescription ());
         Log.i ("DisplayAdapter petition", petition.getmTitle ());
         Picasso.with(getContext()).load("http://www.butterflyhomehelp.com/images/BUTTERFLY-ORANGE-969x1024.jpg").into (imageView);
-        numSigns.setText ("Signs : " + petition.getmSigns ());
-        numUnsigns.setText ("UnSigns : " + petition.getmUnsigns ());
+        numSigns.setText ("Sign : " + petition.getmSigns ());
+        numUnsigns.setText ("Disagree : " + petition.getmUnsigns ());
 
         convertView.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick (View v) {
-                Intent i = new Intent (getContext (), PetitionActivity.class);
+                Intent i = new Intent (getContext (), PetitionDetailsActivity.class);
                 i.putExtra ("petition", petition);
                 Log.i ("DisplayAdapter", "Petition clicked");
                 getContext ().startActivity (i);

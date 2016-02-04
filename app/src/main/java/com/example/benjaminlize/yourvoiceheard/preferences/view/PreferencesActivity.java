@@ -1,6 +1,5 @@
 package com.example.benjaminlize.yourvoiceheard.preferences.view;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.benjaminlize.yourvoiceheard.R;
-import com.example.benjaminlize.yourvoiceheard.main.view.MainActivity;
+import com.example.benjaminlize.yourvoiceheard.petitions.view.PetitionsActivity;
 import com.example.benjaminlize.yourvoiceheard.user.User;
 import com.example.benjaminlize.yourvoiceheard.utils.Constants;
 import com.google.gson.Gson;
@@ -54,7 +53,7 @@ public class PreferencesActivity extends AppCompatActivity {
             }
         });
 
-        if (caller.equals ("SettingActivity")) {
+        if (caller.equals ("SettingsActivity")) {
             getSupportActionBar ().setDisplayHomeAsUpEnabled (true);
             selectText.setVisibility (View.GONE);
             proceedButton.setVisibility (View.GONE);
@@ -64,7 +63,7 @@ public class PreferencesActivity extends AppCompatActivity {
     }
 
     private void openMainPage () {
-        startActivity (new Intent (PreferencesActivity.this, MainActivity.class));
+        startActivity (new Intent (PreferencesActivity.this, PetitionsActivity.class));
         finish ();
     }
 

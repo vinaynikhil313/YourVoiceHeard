@@ -1,4 +1,4 @@
-package com.example.benjaminlize.yourvoiceheard.main.view;
+package com.example.benjaminlize.yourvoiceheard.petitions.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,7 +19,7 @@ import com.facebook.login.LoginManager;
 /**
  * Main Activity for the petitions
  */
-public class MainActivity extends AppCompatActivity {
+public class PetitionsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView (R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.mainToolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar ().setTitle ("Your Voice Heard");
+        toolbar.setTitleTextColor(0xFFFFFFFF);
 
     }
 
@@ -53,13 +55,13 @@ public class MainActivity extends AppCompatActivity {
                 editor.remove ("user");
                 editor.commit ();
                 LoginManager.getInstance ().logOut ();
-                Intent i = new Intent (MainActivity.this, LoginActivity.class);
+                Intent i = new Intent (PetitionsActivity.this, LoginActivity.class);
                 startActivity (i);
                 finish ();
                 break;
 
             case R.id.settings :
-                startActivity (new Intent(MainActivity.this, SettingsActivity.class));
+                startActivity (new Intent(PetitionsActivity.this, SettingsActivity.class));
         }
 
         return super.onOptionsItemSelected(item);

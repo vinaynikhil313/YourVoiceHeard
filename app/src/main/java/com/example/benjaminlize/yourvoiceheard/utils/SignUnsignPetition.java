@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.benjaminlize.yourvoiceheard.petition.Petition;
+import com.example.benjaminlize.yourvoiceheard.petitiondetails.Petition;
 import com.example.benjaminlize.yourvoiceheard.user.User;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;

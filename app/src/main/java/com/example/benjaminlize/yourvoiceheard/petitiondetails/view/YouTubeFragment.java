@@ -1,4 +1,4 @@
-package com.example.benjaminlize.yourvoiceheard.petition.view;
+package com.example.benjaminlize.yourvoiceheard.petitiondetails.view;
 
 /**
  * Created by Vinay Nikhil Pabba on 01-02-2016.

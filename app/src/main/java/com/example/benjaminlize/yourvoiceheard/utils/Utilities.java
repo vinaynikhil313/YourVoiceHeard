@@ -1,6 +1,6 @@
 package com.example.benjaminlize.yourvoiceheard.utils;
 
-import com.example.benjaminlize.yourvoiceheard.petition.Petition;
+import com.example.benjaminlize.yourvoiceheard.petitiondetails.Petition;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 
@@ -78,6 +78,13 @@ public class Utilities {
         categories.add ("Poverty");
         categories.add ("Corruption");
         firebase.child ("categories").setValue (categories);
+    }
+
+    public static void createPetition(String mCategory, String mImageUrl, String mLongDescription,
+                                      String mShortDescription, String mTitle, String mUniqueId, String mVideoUrl){
+        Petition p = new Petition (mCategory, mImageUrl, mLongDescription, mShortDescription, mTitle, mUniqueId, mVideoUrl);
+
+        firebase.child ("petitions").child (mUniqueId).setValue (p);
     }
 
     public static void deleteEmail(){

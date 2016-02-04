@@ -1,6 +1,6 @@
 package com.example.benjaminlize.yourvoiceheard.utils;
 
-import com.example.benjaminlize.yourvoiceheard.main.view.MainActivity;
+import com.example.benjaminlize.yourvoiceheard.petitions.view.PetitionsActivity;
 import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -94,7 +94,7 @@ public class AuthenticateUser {
         @Override
         public void onAuthenticated (AuthData authData) {
 
-            Intent i = new Intent(context, MainActivity.class);
+            Intent i = new Intent(context, PetitionsActivity.class);
             context.startActivity (i);
             ((Activity)context).finish ();
 

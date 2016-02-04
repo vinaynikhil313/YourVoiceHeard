@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.app.Fragment;
 import android.widget.Toast;
 
-import com.example.benjaminlize.yourvoiceheard.main.view.MainActivity;
 import com.example.benjaminlize.yourvoiceheard.preferences.view.PreferencesActivity;
 import com.example.benjaminlize.yourvoiceheard.register.presenter.RegisterPresenter;
 import com.example.benjaminlize.yourvoiceheard.register.presenter.RegisterPresenterImpl;

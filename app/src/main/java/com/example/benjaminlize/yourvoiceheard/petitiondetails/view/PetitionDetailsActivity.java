@@ -1,4 +1,4 @@
-package com.example.benjaminlize.yourvoiceheard.petition.view;
+package com.example.benjaminlize.yourvoiceheard.petitiondetails.view;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -14,19 +14,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.benjaminlize.yourvoiceheard.R;
-import com.example.benjaminlize.yourvoiceheard.petition.Petition;
+import com.example.benjaminlize.yourvoiceheard.petitiondetails.Petition;
 import com.example.benjaminlize.yourvoiceheard.user.User;
 import com.example.benjaminlize.yourvoiceheard.utils.Constants;
-import com.example.benjaminlize.yourvoiceheard.petition.presenter.PetitionPresenter;
-import com.example.benjaminlize.yourvoiceheard.petition.presenter.PetitionPresenterImpl;
+import com.example.benjaminlize.yourvoiceheard.petitiondetails.presenter.PetitionDetailsPresenter;
+import com.example.benjaminlize.yourvoiceheard.petitiondetails.presenter.PetitionDetailsPresenterImpl;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 /**
  * Created by Vinay Nikhil Pabba on 18-01-2016.
  */
-public class PetitionActivity extends AppCompatActivity
-        implements PetitionView, View.OnClickListener {
+public class PetitionDetailsActivity extends AppCompatActivity
+        implements PetitionDetailsView, View.OnClickListener {
 
     TextView title;
     ImageView image;
@@ -37,13 +37,13 @@ public class PetitionActivity extends AppCompatActivity
     TextView unsignsCount;
     Petition petition;
 
-    PetitionPresenter presenter;
+    PetitionDetailsPresenter presenter;
 
     ProgressDialog progressDialog;
 
     SharedPreferences sharedPreferences;
 
-    private final String TAG = PetitionActivity.class.getSimpleName ();
+    private final String TAG = PetitionDetailsActivity.class.getSimpleName ();
 
     int buttonPressed = 0;
 
@@ -57,6 +57,9 @@ public class PetitionActivity extends AppCompatActivity
 
         getSupportActionBar ().setDisplayHomeAsUpEnabled (true);
 
+        getSupportActionBar ().setTitle ("Petition");
+        toolbar.setTitleTextColor(0xFFFFFFFF);
+
         Log.i (TAG, "Petition Activity created");
 
         sharedPreferences = getSharedPreferences (Constants.MY_PREF, Context.MODE_PRIVATE);
@@ -65,7 +68,7 @@ public class PetitionActivity extends AppCompatActivity
 
         petition = (Petition) getIntent ().getSerializableExtra ("petition");
 
-        presenter = new PetitionPresenterImpl (this, user, petition);
+        presenter = new PetitionDetailsPresenterImpl (this, user, petition);
 
         Log.i(TAG, "Initializing views");
 
@@ -84,9 +87,9 @@ public class PetitionActivity extends AppCompatActivity
 
         title.setText (petition.getmTitle ());
         description.setText (petition.getmLongDescription ());
-        Picasso.with (PetitionActivity.this).load ("http://www.butterflyhomehelp.com/images/BUTTERFLY-ORANGE-969x1024.jpg").into (image);
-        signsCount.setText ("Signs : " + petition.getmSigns ());
-        unsignsCount.setText ("UnSigns : " + petition.getmUnsigns ());
+        Picasso.with (PetitionDetailsActivity.this).load ("http://www.butterflyhomehelp.com/images/BUTTERFLY-ORANGE-969x1024.jpg").into (image);
+        signsCount.setText ("Sign : " + petition.getmSigns ());
+        unsignsCount.setText ("Disagree : " + petition.getmUnsigns ());
         Log.i (TAG, "Starting YouTube fragment");
         YouTubeFragment youTubeFragment = YouTubeFragment.newInstance (Constants.YOUTUBE_VIDEO_CODE);
         getSupportFragmentManager ().beginTransaction ().replace(R.id.youtube_frame, youTubeFragment).commit ();
@@ -133,7 +136,7 @@ public class PetitionActivity extends AppCompatActivity
 
     @Override
     public void showMessage (String message) {
-        Toast.makeText (PetitionActivity.this, message, Toast.LENGTH_SHORT).show ();
+        Toast.makeText (PetitionDetailsActivity.this, message, Toast.LENGTH_SHORT).show ();
     }
 
     @Override

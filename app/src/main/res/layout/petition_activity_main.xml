@@ -6,7 +6,7 @@
               android:layout_height="match_parent"
               android:fitsSystemWindows="true"
               android:orientation="vertical"
-              tools:context=".petition.view.PetitionActivity">
+              tools:context=".petitiondetails.view.PetitionDetailsActivity">
 
     <!--<android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -19,7 +19,9 @@
         android:id="@+id/petitionToolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"/>
+        android:background="?attr/colorPrimary"
+        android:titleTextColor="@color/white"
+        android:elevation="8dp"/>
 
     <!--<TextView
         android:layout_width="wrap_content"

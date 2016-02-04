@@ -1,4 +1,4 @@
-package com.example.benjaminlize.yourvoiceheard.main.view;
+package com.example.benjaminlize.yourvoiceheard.petitions.view;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Parcel;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -16,10 +15,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
-import com.example.benjaminlize.yourvoiceheard.main.presenter.MainPresenter;
-import com.example.benjaminlize.yourvoiceheard.main.presenter.MainPresenterImpl;
-import com.example.benjaminlize.yourvoiceheard.petition.Petition;
+import com.example.benjaminlize.yourvoiceheard.petitions.presenter.PetitionsPresenter;
+import com.example.benjaminlize.yourvoiceheard.petitions.presenter.PetitionsPresenterImpl;
+import com.example.benjaminlize.yourvoiceheard.petitiondetails.Petition;
 import com.example.benjaminlize.yourvoiceheard.R;
 import com.example.benjaminlize.yourvoiceheard.user.User;
 import com.example.benjaminlize.yourvoiceheard.utils.Constants;
@@ -32,18 +32,18 @@ import java.util.List;
  * A placeholder for all the petitions.
  * Calls the PetitionsDisplayAdapter which displays the petitions on the screen
  */
-public class MainActivityFragment extends Fragment implements MainActivityFragmentView {
+public class PetitionsActivityFragment extends Fragment implements PetitionsActivityFragmentView {
 
     View viewHolder;
 
-    MainPresenter presenter;
+    PetitionsPresenter presenter;
 
     ListView listView;
-    PetitionsDisplayAdapter petitionsDisplayAdapter;
+    PetitionsListDisplayAdapter petitionsListDisplayAdapter;
 
     NotificationManager notificationManager;
 
-    public MainActivityFragment () {
+    public PetitionsActivityFragment () {
     }
 
     String TAG = Utilities.getTag (this);
@@ -67,7 +67,7 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 
         listView = (ListView) viewHolder.findViewById (R.id.listView);
 
-        presenter = new MainPresenterImpl (this);
+        presenter = new PetitionsPresenterImpl (this);
         Log.i (TAG, "Presenter created and called");
         return viewHolder;
     }
@@ -82,8 +82,9 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 
     @Override
     public void setDisplayAdapter (List<Petition> petitionList) {
-        petitionsDisplayAdapter = new PetitionsDisplayAdapter (getContext (), petitionList);
-        listView.setAdapter (petitionsDisplayAdapter);
+        petitionsListDisplayAdapter = new PetitionsListDisplayAdapter (getContext (), petitionList);
+        //listView.
+        listView.setAdapter (petitionsListDisplayAdapter);
     }
 
     private User getUser(){
@@ -97,9 +98,9 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
     public void showNotification (Petition petition) {
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(getContext ());
-        stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addParentStack(PetitionsActivity.class);
 
-        Intent i = new Intent(getContext (), MainActivity.class);
+        Intent i = new Intent(getContext (), PetitionsActivity.class);
         //i.putExtra (Constants.NOTIF_ID, 243);
         Bundle extras = new Bundle ();
         extras.putInt (Constants.NOTIF_ID, 243);
@@ -119,5 +120,10 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
 
         notificationManager.notify (0, notification);
+    }
+
+    @Override
+    public void showMessage (String message) {
+        Toast.makeText (getContext (), message, Toast.LENGTH_LONG).show ();
     }
 }

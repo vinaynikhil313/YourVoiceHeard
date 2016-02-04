@@ -6,13 +6,15 @@
               android:layout_height="match_parent"
               android:fitsSystemWindows="true"
               android:orientation="vertical"
-              tools:context=".main.view.MainActivity">
+              tools:context=".petitions.view.PetitionsActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/mainToolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"/>
+        android:background="?attr/colorPrimary"
+        android:titleTextColor="@color/white"
+        android:elevation="8dp"/>
 
     <include layout="@layout/content_main"/>
 
