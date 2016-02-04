@@ -24,7 +24,7 @@ import java.util.List;
 public class PetitionsListDisplayAdapter extends ArrayAdapter<Petition> {
 
     public PetitionsListDisplayAdapter (Context context, List<Petition> petitionArray) {
-        super(context, 0, petitionArray);
+        super (context, 0, petitionArray);
     }
 
     @Override
@@ -33,30 +33,31 @@ public class PetitionsListDisplayAdapter extends ArrayAdapter<Petition> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView (int position, View convertView, ViewGroup parent) {
 
-        final Petition petition = getItem(position);
-        if(petition == null){
+        final Petition petition = getItem (position);
+        if (petition == null) {
             return null;
         }
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
+            convertView = LayoutInflater.from (getContext ()).inflate (R.layout.list_item, parent, false);
         }
 
         // Check if an existing view is being reused, otherwise inflate the view
 
         // Lookup view for data population
-        TextView title       = (TextView) convertView.findViewById(R.id.petitionTitle);
-        TextView description = (TextView) convertView.findViewById(R.id.petitionShortDescription);
-        ImageView imageView  = (ImageView) convertView.findViewById(R.id.petitionImage);
-        TextView numSigns    = (TextView) convertView.findViewById(R.id.signsCount);
-        TextView numUnsigns  = (TextView) convertView.findViewById(R.id.unsignsCount);
+        TextView title = (TextView) convertView.findViewById (R.id.petitionTitle);
+        TextView description = (TextView) convertView.findViewById (R.id.petitionShortDescription);
+        ImageView imageView = (ImageView) convertView.findViewById (R.id.petitionImage);
+        TextView numSigns = (TextView) convertView.findViewById (R.id.signsCount);
+        TextView numUnsigns = (TextView) convertView.findViewById (R.id.unsignsCount);
         // Populate the data into the template view using the data object
-        title.setText(petition.getmTitle());
-        description.setText(petition.getmShortDescription ());
+        title.setText (petition.getmTitle ());
+        description.setText (petition.getmShortDescription ());
         Log.i ("DisplayAdapter petition", petition.getmTitle ());
-        Picasso.with(getContext()).load("http://www.butterflyhomehelp.com/images/BUTTERFLY-ORANGE-969x1024.jpg").into (imageView);
+        if (! petition.getmImageUrl ().equals ("") && ! petition.getmImageUrl ().isEmpty ())
+            Picasso.with (getContext ()).load (petition.getmImageUrl ()).into (imageView);
         numSigns.setText ("Sign : " + petition.getmSigns ());
         numUnsigns.setText ("Disagree : " + petition.getmUnsigns ());
 

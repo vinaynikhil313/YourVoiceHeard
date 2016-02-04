@@ -58,19 +58,21 @@ public class PetitionDetailsActivity extends AppCompatActivity
         getSupportActionBar ().setDisplayHomeAsUpEnabled (true);
 
         getSupportActionBar ().setTitle ("Petition");
-        toolbar.setTitleTextColor(0xFFFFFFFF);
+        toolbar.setTitleTextColor (0xFFFFFFFF);
 
         Log.i (TAG, "Petition Activity created");
 
         sharedPreferences = getSharedPreferences (Constants.MY_PREF, Context.MODE_PRIVATE);
 
-        User user = getUser();
+        User user = getUser ();
+
+        petition = new Petition ();
 
         petition = (Petition) getIntent ().getSerializableExtra ("petition");
 
         presenter = new PetitionDetailsPresenterImpl (this, user, petition);
 
-        Log.i(TAG, "Initializing views");
+        Log.i (TAG, "Initializing views");
 
         title = (TextView) findViewById (R.id.petitionTitle);
         image = (ImageView) findViewById (R.id.petition_image);
@@ -87,12 +89,13 @@ public class PetitionDetailsActivity extends AppCompatActivity
 
         title.setText (petition.getmTitle ());
         description.setText (petition.getmLongDescription ());
-        Picasso.with (PetitionDetailsActivity.this).load ("http://www.butterflyhomehelp.com/images/BUTTERFLY-ORANGE-969x1024.jpg").into (image);
+        if (! petition.getmImageUrl ().equals ("") && ! petition.getmImageUrl ().isEmpty ())
+            Picasso.with (PetitionDetailsActivity.this).load (petition.getmImageUrl ()).into (image);
         signsCount.setText ("Sign : " + petition.getmSigns ());
         unsignsCount.setText ("Disagree : " + petition.getmUnsigns ());
         Log.i (TAG, "Starting YouTube fragment");
-        YouTubeFragment youTubeFragment = YouTubeFragment.newInstance (Constants.YOUTUBE_VIDEO_CODE);
-        getSupportFragmentManager ().beginTransaction ().replace(R.id.youtube_frame, youTubeFragment).commit ();
+        YouTubeFragment youTubeFragment = YouTubeFragment.newInstance (petition.getmVideoUrl ());
+        getSupportFragmentManager ().beginTransaction ().replace (R.id.youtube_frame, youTubeFragment).commit ();
 
 
         Log.i (TAG + " UID ", user.getUid ());
@@ -105,7 +108,7 @@ public class PetitionDetailsActivity extends AppCompatActivity
     private User getUser () {
 
         String userJson = sharedPreferences.getString ("user", "");
-        Gson gson = new Gson();
+        Gson gson = new Gson ();
         User user = gson.fromJson (userJson, User.class);
         return user;
 
@@ -113,8 +116,8 @@ public class PetitionDetailsActivity extends AppCompatActivity
 
     @Override
     public void onClick (View v) {
-        Log.i(TAG, "Button clicked is " + v.getId ());
-        switch (v.getId ()){
+        Log.i (TAG, "Button clicked is " + v.getId ());
+        switch (v.getId ()) {
             case R.id.button_sign:
                 buttonPressed = Constants.SIGN;
                 break;
@@ -124,13 +127,13 @@ public class PetitionDetailsActivity extends AppCompatActivity
                 break;
         }
 
-        presenter.buttonClicked(buttonPressed);
+        presenter.buttonClicked (buttonPressed);
 
     }
 
     @Override
     public void updateSignsUnsignsCount (int numSigns, int numUnsigns) {
-        signsCount.setText("Signs : " + numSigns);
+        signsCount.setText ("Signs : " + numSigns);
         unsignsCount.setText ("Unsigns : " + numUnsigns);
     }
 
