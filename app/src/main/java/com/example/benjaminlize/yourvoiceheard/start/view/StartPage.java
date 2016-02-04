@@ -7,10 +7,13 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -51,7 +54,6 @@ public class StartPage extends Activity implements StartPageView{
         super.onCreate (savedInstanceState);
 
         displayHashKey ();
-        //Utilities.deleteEmail ();
 
         presenter = new StartPagePreviousLoginChecker (this);
 
@@ -66,25 +68,6 @@ public class StartPage extends Activity implements StartPageView{
 
         progressBar = (ProgressBar) findViewById (R.id.progressBar);
 
-    }
-
-    void checkPreviousPasswordLogin1(){
-        Log.i (TAG, "Checking previous password login");
-        if(sharedPreferences.getString ("provider", "").equals ("password")){
-            Log.i (TAG, "Provider is password");
-            Gson gson = new Gson ();
-            String userJson = sharedPreferences.getString ("user", "");
-            User user = gson.fromJson (userJson, User.class);
-            if(user == null)
-                return;
-            String token = user.getAccessToken (); //sharedPreferences.getString ("accessToken", "");
-            Log.i(TAG + " Token ", token);
-            if(!token.equals ("")) {
-                presenter.loginWithPassword (token);
-                openLoginPageFlag = false;
-            }
-
-        }
     }
 
     void checkPreviousPasswordLogin(){
@@ -116,8 +99,6 @@ public class StartPage extends Activity implements StartPageView{
         Gson gson = new Gson ();
         String userJson = gson.toJson (user);
         editor.putString ("user", userJson);
-        //editor.putString ("uid", uid);
-        //editor.putString ("accessToken", accessToken);
         editor.commit ();
     }
 
@@ -154,6 +135,12 @@ public class StartPage extends Activity implements StartPageView{
 
             @Override
             public void run () {
+                if(!isNetworkAvailable ()){
+                    progressBar.setVisibility (View.GONE);
+                    Toast.makeText (StartPage.this, "Internet not available..." +
+                            "\nPlease check your internet and try again", Toast.LENGTH_LONG).show ();
+                    finish ();
+                }
                 if(openLoginPageFlag) {
                     openLoginPage ();
                 }
@@ -165,8 +152,8 @@ public class StartPage extends Activity implements StartPageView{
     @Override
     public void openLoginPage () {
         Log.i(TAG, "Opening Login Page");
-        startActivity (new Intent(StartPage.this, LoginActivity.class));
-        finish();
+        startActivity (new Intent (StartPage.this, LoginActivity.class));
+        finish ();
 
     }
 
@@ -180,6 +167,13 @@ public class StartPage extends Activity implements StartPageView{
     @Override
     public void disableLoginPage () {
         openLoginPageFlag = false;
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
 }
