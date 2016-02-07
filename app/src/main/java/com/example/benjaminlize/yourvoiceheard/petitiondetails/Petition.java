@@ -19,8 +19,8 @@ public class Petition implements Serializable{
     private String mShortDescription;
     private String mImageUrl;
     private String mVideoUrl;
-    private int mSigns;
-    private int mUnsigns;
+    private int mSigns = 0;
+    private int mUnsigns = 0;
     private Map<String, Integer> mUsers = new HashMap<String, Integer> ();
 
     public Petition (String mCategory, String mImageUrl, String mLongDescription, String mShortDescription, String mTitle, String mUniqueId, String mVideoUrl) {

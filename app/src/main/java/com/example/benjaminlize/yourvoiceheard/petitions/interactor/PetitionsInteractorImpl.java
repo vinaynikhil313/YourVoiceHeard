@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * Created by Vinay Nikhil Pabba on 29-01-2016.
  */
-public class PetitionsInteractorImpl implements PetitionsInteractor, ValueEventListener, ChildEventListener {
+public class PetitionsInteractorImpl implements PetitionsInteractor, ValueEventListener{
 
     OnPetitionsListFinishedListener listener;
 
@@ -64,57 +64,8 @@ public class PetitionsInteractorImpl implements PetitionsInteractor, ValueEventL
         }
         Log.i ("MainInteractor", "Petition List Size = " + petitionList.size ());
         listener.onPetitionsListGenerated (petitionList);
-        firebase.child ("petitions").addChildEventListener (this);
+        //firebase.child ("petitions").addChildEventListener (this);
 
-    }
-
-    @Override
-    public void onChildAdded (DataSnapshot dataSnapshot, String s) {
-
-        Petition newPetition = getPetition (dataSnapshot);
-
-        if (newPetition == null)
-            return;
-
-        Log.i ("MainInteractor", "New PetitionID " + newPetition.getmUniqueId ());
-        currentCount++;
-        if (currentCount > petitionsCount) {
-
-            Log.i ("MainInteractor", "CheckPoint 123");
-            petitionsCount++;
-            listener.onNewPetitionAdded (newPetition);
-            if (isUserPreferredPetition (newPetition)) {
-                petitionList.add (newPetition);
-                listener.onPetitionsListGenerated (petitionList);
-            }
-        }
-        Log.i ("MainInteractor", "New currentCount =  " + currentCount + " " + petitionsCount);
-
-    }
-
-    @Override
-    public void onChildChanged (DataSnapshot dataSnapshot, String s) {
-
-    }
-
-    @Override
-    public void onChildMoved (DataSnapshot dataSnapshot, String s) {
-
-    }
-
-    @Override
-    public void onChildRemoved (DataSnapshot dataSnapshot) {
-        Petition removedPetition = getPetition (dataSnapshot); //dataSnapshot.getValue (Petition.class);
-        Log.i ("MainInteractor", "Removed PetitionID " + removedPetition.getmUniqueId ());
-        if (currentCount == petitionsCount)
-            petitionsCount--;
-        currentCount--;
-        if(isUserPreferredPetition (removedPetition)) {
-            Log.i ("MainInteractor", "Removed PetitionID " + removedPetition.getmUniqueId ());
-            petitionList.remove (removedPetition);
-            Log.i ("MainInteractor", "Removed Petition List Size = " + petitionList.size ());
-            listener.onPetitionsListGenerated (petitionList);
-        }
     }
 
     private Petition getPetition (DataSnapshot dataSnapshot) {

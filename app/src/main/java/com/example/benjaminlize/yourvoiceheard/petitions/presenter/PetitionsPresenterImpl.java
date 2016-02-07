@@ -38,14 +38,4 @@ public class PetitionsPresenterImpl implements PetitionsPresenter, OnPetitionsLi
         Log.i(TAG, "List Created");
     }
 
-    @Override
-    public void onNewPetitionAdded (Petition petition) {
-        view.showNotification (petition);
-        view.showMessage ("New Petition added. Please scroll below");
-    }
-
-    @Override
-    public void onPetitionRemoved (Petition petition) {
-
-    }
 }

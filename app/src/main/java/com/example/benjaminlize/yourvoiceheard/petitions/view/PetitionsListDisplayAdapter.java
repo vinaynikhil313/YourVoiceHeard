@@ -55,8 +55,8 @@ public class PetitionsListDisplayAdapter extends ArrayAdapter<Petition> {
         // Populate the data into the template view using the data object
         title.setText (petition.getmTitle ());
         description.setText (petition.getmShortDescription ());
-        Log.i ("DisplayAdapter petition", petition.getmTitle ());
-        if (! petition.getmImageUrl ().equals ("") && ! petition.getmImageUrl ().isEmpty ())
+        //Log.i ("DisplayAdapter petition", petition.getmImageUrl ());
+        if (petition.getmImageUrl () != null && ! petition.getmImageUrl ().equals ("") && ! petition.getmImageUrl ().isEmpty ())
             Picasso.with (getContext ()).load (petition.getmImageUrl ()).into (imageView);
         numSigns.setText ("Sign : " + petition.getmSigns ());
         numUnsigns.setText ("Disagree : " + petition.getmUnsigns ());

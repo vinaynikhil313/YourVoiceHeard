@@ -20,4 +20,6 @@ public interface PreferencesView {
 
     void writeToSharedPreferences(User user);
 
+    void changeService(User user);
+
 }

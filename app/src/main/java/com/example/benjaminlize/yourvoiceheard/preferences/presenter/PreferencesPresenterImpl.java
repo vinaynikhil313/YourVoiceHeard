@@ -59,5 +59,6 @@ public class PreferencesPresenterImpl implements PreferencesPresenter,
     @Override
     public void onPrefChangedSuccess (User user) {
         view.writeToSharedPreferences (user);
+        view.changeService (user);
     }
 }

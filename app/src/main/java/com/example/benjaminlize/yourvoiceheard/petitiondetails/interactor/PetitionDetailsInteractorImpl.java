@@ -44,6 +44,7 @@ public class PetitionDetailsInteractorImpl implements PetitionDetailsInteractor,
 
     private int checkPreviousSignUnsign(){
         int currentFlag = 0;
+        Log.i(TAG, "getPetitions() " + user.getPetitions ().get(petition.getmUniqueId ()));
         if(user.getPetitions () != null && user.getPetitions ().get(petition.getmUniqueId ()) != null){
             return user.getPetitions ().get (petition.getmUniqueId ());
         }
@@ -58,13 +59,15 @@ public class PetitionDetailsInteractorImpl implements PetitionDetailsInteractor,
 
         int previousSignUnsign = checkPreviousSignUnsign();
 
+        Log.i(TAG, "Previous Sign Unsign " + previousSignUnsign);
+
         /**
          * previousSignUnsign == 0, means the user is signing/unsigning the petition for the first time
          * previousSignUnsign == flag, means that the user clicked on the same button again
          * previousSignUnsign != flag, means that the user has changed his mind
          */
         if(previousSignUnsign == 0 || previousSignUnsign != flag) {
-            if(checkPreviousSignUnsign () == 0) {
+            if(previousSignUnsign == 0) {
                 petition.newSignUnsign (flag);
                 listener.onFirstTimeSignUnsign (petition.getmSigns (), petition.getmUnsigns ());
             }

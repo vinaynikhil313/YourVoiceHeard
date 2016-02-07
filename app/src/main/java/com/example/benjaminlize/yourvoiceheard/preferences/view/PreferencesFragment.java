@@ -1,6 +1,7 @@
 package com.example.benjaminlize.yourvoiceheard.preferences.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.benjaminlize.yourvoiceheard.R;
 import com.example.benjaminlize.yourvoiceheard.category.Category;
+import com.example.benjaminlize.yourvoiceheard.notifications.view.NotificationService;
 import com.example.benjaminlize.yourvoiceheard.preferences.presenter.PreferencesPresenter;
 import com.example.benjaminlize.yourvoiceheard.preferences.presenter.PreferencesPresenterImpl;
 import com.example.benjaminlize.yourvoiceheard.user.User;
@@ -30,7 +32,7 @@ public class PreferencesFragment extends Fragment implements PreferencesView {
 
     ListView listView;
 
-
+    Intent i;
 
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,6 +41,7 @@ public class PreferencesFragment extends Fragment implements PreferencesView {
         presenter = new PreferencesPresenterImpl (this);
 
         listView = (ListView) view.findViewById (R.id.listView);
+        i = new Intent (getContext (), NotificationService.class);
 
         generatePreferences ();
 
@@ -86,4 +89,9 @@ public class PreferencesFragment extends Fragment implements PreferencesView {
         Toast.makeText (getContext (), message, Toast.LENGTH_SHORT).show ();
     }
 
+    @Override
+    public void changeService (User user) {
+        getContext ().stopService (i);
+        getContext ().startService (i);
+    }
 }

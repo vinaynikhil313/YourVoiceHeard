@@ -89,13 +89,15 @@ public class PetitionDetailsActivity extends AppCompatActivity
 
         title.setText (petition.getmTitle ());
         description.setText (petition.getmLongDescription ());
-        if (! petition.getmImageUrl ().equals ("") && ! petition.getmImageUrl ().isEmpty ())
+        if (petition.getmImageUrl () != null && ! petition.getmImageUrl ().equals ("") && ! petition.getmImageUrl ().isEmpty ())
             Picasso.with (PetitionDetailsActivity.this).load (petition.getmImageUrl ()).into (image);
         signsCount.setText ("Sign : " + petition.getmSigns ());
         unsignsCount.setText ("Disagree : " + petition.getmUnsigns ());
         Log.i (TAG, "Starting YouTube fragment");
-        YouTubeFragment youTubeFragment = YouTubeFragment.newInstance (petition.getmVideoUrl ());
-        getSupportFragmentManager ().beginTransaction ().replace (R.id.youtube_frame, youTubeFragment).commit ();
+        if (petition.getmVideoUrl () != null && ! petition.getmVideoUrl ().equals ("") && ! petition.getmVideoUrl ().isEmpty ()) {
+            YouTubeFragment youTubeFragment = YouTubeFragment.newInstance (petition.getmVideoUrl ());
+            getSupportFragmentManager ().beginTransaction ().replace (R.id.youtube_frame, youTubeFragment).commit ();
+        }
 
 
         Log.i (TAG + " UID ", user.getUid ());

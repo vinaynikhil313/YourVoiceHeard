@@ -11,8 +11,6 @@ public interface PetitionsActivityFragmentView {
 
     void setDisplayAdapter(List<Petition> petitionList);
 
-    void showNotification(Petition petition);
-
     void showMessage(String message);
 
 }
