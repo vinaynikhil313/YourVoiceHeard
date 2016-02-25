@@ -1,12 +1,12 @@
 package com.example.benjaminlize.yourvoiceheard.forgot.presenter;
 
-import android.util.Log;
-
 import com.example.benjaminlize.yourvoiceheard.forgot.interactor.ForgotPasswordInteractor;
 import com.example.benjaminlize.yourvoiceheard.forgot.interactor.ForgotPasswordInteractorImpl;
 import com.example.benjaminlize.yourvoiceheard.forgot.view.ForgotPasswordView;
 import com.example.benjaminlize.yourvoiceheard.utils.Constants;
 import com.example.benjaminlize.yourvoiceheard.utils.Utilities;
+
+import timber.log.Timber;
 
 /**
  * Created by Vinay Nikhil Pabba on 30-01-2016.
@@ -22,6 +22,7 @@ public class ForgotPasswordPresenterImpl implements
     public ForgotPasswordPresenterImpl(ForgotPasswordView view){
         this.view = view;
         interactor = new ForgotPasswordInteractorImpl ();
+        Timber.tag (TAG);
     }
 
     @Override
@@ -33,7 +34,7 @@ public class ForgotPasswordPresenterImpl implements
     @Override
     public void changePassword (String email, String oldPassword, String newPassword) {
         view.hideChangePasswordDialog ();
-        Log.i (TAG, email + " " + oldPassword + " " + newPassword);
+        Timber.i (TAG, email + " " + oldPassword + " " + newPassword);
         interactor.changePassword (email, oldPassword, newPassword);
         view.showProgressDialog ("Updating your new password...");
     }
@@ -46,7 +47,7 @@ public class ForgotPasswordPresenterImpl implements
 
     @Override
     public void onSuccess (int flag) {
-        Log.i (TAG + flag, "OnSuccess");
+        Timber.i (TAG + flag, "OnSuccess");
         view.hideProgressDialog ();
         switch (flag) {
             case Constants.RESET:

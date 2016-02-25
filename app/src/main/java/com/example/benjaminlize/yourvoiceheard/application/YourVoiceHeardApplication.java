@@ -1,17 +1,17 @@
 package com.example.benjaminlize.yourvoiceheard.application;
 
 import android.app.Application;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.example.benjaminlize.yourvoiceheard.utils.Constants;
 import com.facebook.FacebookSdk;
 import com.firebase.client.Firebase;
 
+import timber.log.BuildConfig;
+import timber.log.Timber;
+
 /**
  * Created by Vinay Nikhil Pabba on 12-01-2016.
- * Initializes Facebook and Firebase SDKs
+ * Initializes Facebook, Firebase and Timber SDKs
  */
 public class YourVoiceHeardApplication extends Application {
 
@@ -21,8 +21,12 @@ public class YourVoiceHeardApplication extends Application {
         FacebookSdk.sdkInitialize (getApplicationContext ());
         Firebase.setAndroidContext (this);
         Firebase.getDefaultConfig().setPersistenceEnabled (true);
-        Firebase scoresRef = new Firebase(Constants.FIREBASE_REF);
-        scoresRef.keepSynced (true);
+        Firebase firebase = new Firebase(Constants.FIREBASE_REF);
+        firebase.keepSynced (true);
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        }
     }
 
 }

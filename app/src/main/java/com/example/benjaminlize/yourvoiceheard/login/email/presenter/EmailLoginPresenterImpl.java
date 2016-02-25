@@ -1,11 +1,9 @@
 package com.example.benjaminlize.yourvoiceheard.login.email.presenter;
 
-import android.util.Log;
-
-import com.example.benjaminlize.yourvoiceheard.login.email.view.EmailLoginFragmentView;
-import com.example.benjaminlize.yourvoiceheard.login.email.view.LoginActivityFragment;
 import com.example.benjaminlize.yourvoiceheard.login.email.interactor.EmailLoginInteractor;
 import com.example.benjaminlize.yourvoiceheard.login.email.interactor.EmailLoginInteractorImpl;
+import com.example.benjaminlize.yourvoiceheard.login.email.view.EmailLoginFragmentView;
+import com.example.benjaminlize.yourvoiceheard.login.email.view.LoginActivityFragment;
 import com.example.benjaminlize.yourvoiceheard.user.User;
 
 /**
@@ -45,7 +43,6 @@ public class EmailLoginPresenterImpl implements EmailLoginPresenter, OnEmailLogi
     @Override
     public void onSuccess (User user) {
         view.writeToSharedPreferences (user);
-        Log.i ("EMAIL PRESENTER", "UID = " + user.getId ());
         view.hideProgressDialog ();
         if(user.getPreferences ().size () > 0)
             view.openMainPage ();

@@ -1,7 +1,5 @@
 package com.example.benjaminlize.yourvoiceheard.login.email.interactor;
 
-import android.util.Log;
-
 import com.example.benjaminlize.yourvoiceheard.login.email.presenter.OnEmailLoginFinishedListener;
 import com.example.benjaminlize.yourvoiceheard.user.User;
 import com.example.benjaminlize.yourvoiceheard.utils.Constants;
@@ -11,6 +9,8 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+
+import timber.log.Timber;
 
 /**
  * Created by Vinay Nikhil Pabba on 21-01-2016.
@@ -25,8 +25,9 @@ public class EmailLoginInteractorImpl implements EmailLoginInteractor, Firebase.
 
     @Override
     public void authenticateWithEmail (String email, String password, OnEmailLoginFinishedListener listener) {
+        Timber.tag (TAG);
         this.listener = listener;
-        Log.i (TAG, "Login with email called");
+        Timber.i (TAG, "Login with email called");
         firebase.authWithPassword (email, password, EmailLoginInteractorImpl.this);
 
     }
@@ -37,7 +38,7 @@ public class EmailLoginInteractorImpl implements EmailLoginInteractor, Firebase.
 
         //listener.onSuccess (authData.getUid (), authData.getToken ());
 
-        Log.i (TAG, "Login with email successful");
+        Timber.i (TAG, "Login with email successful");
 
         UpdateFirebaseLogin.updateFirebase (authData);
 
@@ -74,7 +75,7 @@ public class EmailLoginInteractorImpl implements EmailLoginInteractor, Firebase.
     @Override
     public void onDataChange (DataSnapshot dataSnapshot) {
         User user = dataSnapshot.getValue (User.class);
-        Log.i("EMAIL INTERACTOR", "UID + " + user.getUid ());
+        Timber.i("EMAIL INTERACTOR", "UID + " + user.getUid ());
         listener.onSuccess (user);
     }
 }

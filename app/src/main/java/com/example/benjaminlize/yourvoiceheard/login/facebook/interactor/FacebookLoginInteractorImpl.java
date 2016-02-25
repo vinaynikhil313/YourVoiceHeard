@@ -1,12 +1,9 @@
 package com.example.benjaminlize.yourvoiceheard.login.facebook.interactor;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.example.benjaminlize.yourvoiceheard.login.facebook.presenter.OnFacebookLoginFinishedListener;
 import com.example.benjaminlize.yourvoiceheard.user.User;
-import com.example.benjaminlize.yourvoiceheard.utils.AuthenticateUser;
 import com.example.benjaminlize.yourvoiceheard.utils.Constants;
 import com.example.benjaminlize.yourvoiceheard.utils.UpdateFirebaseLogin;
 import com.facebook.AccessToken;
@@ -18,7 +15,6 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -40,7 +36,7 @@ public class FacebookLoginInteractorImpl implements FacebookLoginInteractor,
                     public void onCompleted(JSONObject object,GraphResponse response) {
 
                         JSONObject json = response.getJSONObject();
-                        Log.i("JSON ", json.toString ());
+                        //Log.i("JSON ", json.toString ());
 
                         if (json != null) {
                             firebase.authWithOAuthToken ("facebook", AccessToken.getCurrentAccessToken ().getToken (), FacebookLoginInteractorImpl.this);
@@ -70,7 +66,6 @@ public class FacebookLoginInteractorImpl implements FacebookLoginInteractor,
     @Override
     public void onDataChange (DataSnapshot dataSnapshot) {
         User user = dataSnapshot.getValue (User.class);
-        Log.i("FACEBOOK INTERACTOR", "UID = " + user.getUid ());
         listener.onFirebaseLoginSuccess (user);
     }
 

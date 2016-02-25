@@ -2,26 +2,27 @@ package com.example.benjaminlize.yourvoiceheard.login.facebook.view;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.support.v4.app.Fragment;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.benjaminlize.yourvoiceheard.R;
 import com.example.benjaminlize.yourvoiceheard.login.facebook.presenter.FacebookLoginPresenterImpl;
 import com.example.benjaminlize.yourvoiceheard.petitions.view.PetitionsActivity;
-import com.example.benjaminlize.yourvoiceheard.R;
 import com.example.benjaminlize.yourvoiceheard.preferences.view.PreferencesActivity;
 import com.example.benjaminlize.yourvoiceheard.user.User;
 import com.example.benjaminlize.yourvoiceheard.utils.Constants;
 import com.facebook.CallbackManager;
 import com.facebook.login.widget.LoginButton;
 import com.google.gson.Gson;
+
+import timber.log.Timber;
 
 /**
  * Created by Vinay Nikhil Pabba on 14-01-2016.
@@ -40,6 +41,8 @@ public class FacebookLoginFragment extends Fragment implements FacebookLoginFrag
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate (R.layout.login_facebook_fragment, container, false);
 
+        Timber.tag (TAG);
+
         progressDialog = new ProgressDialog (getContext ());
         progressDialog.setMessage ("Logging you in");
         progressDialog.setProgressStyle (ProgressDialog.STYLE_SPINNER);
@@ -51,7 +54,7 @@ public class FacebookLoginFragment extends Fragment implements FacebookLoginFrag
         facebookLoginButton.setFragment (FacebookLoginFragment.this);
         facebookLoginButton.setReadPermissions ("public_profile email");
 
-        Log.i (TAG, "Facebook Login Button created");
+        Timber.i (TAG, "Facebook Login Button created");
 
         facebookLoginButton.registerCallback (callbackManager, new FacebookLoginPresenterImpl (this));
 

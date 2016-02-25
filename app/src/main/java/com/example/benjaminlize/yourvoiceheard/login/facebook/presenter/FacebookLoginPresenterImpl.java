@@ -1,7 +1,5 @@
 package com.example.benjaminlize.yourvoiceheard.login.facebook.presenter;
 
-import android.util.Log;
-
 import com.example.benjaminlize.yourvoiceheard.login.facebook.interactor.FacebookLoginInteractor;
 import com.example.benjaminlize.yourvoiceheard.login.facebook.interactor.FacebookLoginInteractorImpl;
 import com.example.benjaminlize.yourvoiceheard.login.facebook.view.FacebookLoginFragment;
@@ -11,6 +9,8 @@ import com.facebook.AccessToken;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
+
+import timber.log.Timber;
 
 /**
  * Created by Vinay Nikhil Pabba on 27-01-2016.
@@ -27,7 +27,8 @@ public class FacebookLoginPresenterImpl implements FacebookLoginPresenter,
 
         this.view = view;
         interactor = new FacebookLoginInteractorImpl ();
-        Log.i(TAG, "FacebookPresenter created");
+        Timber.tag (TAG);
+        Timber.i(TAG, "FacebookPresenter created");
 
     }
 
@@ -45,10 +46,10 @@ public class FacebookLoginPresenterImpl implements FacebookLoginPresenter,
     public void onSuccess (LoginResult loginResult) {
         view.showProgressDialog ();
         AccessToken accessToken = loginResult.getAccessToken ();
-        Log.i (TAG, accessToken.getToken ());
+            Timber.i (TAG, accessToken.getToken ());
         AccessToken.setCurrentAccessToken (accessToken);
         if (accessToken != null) {
-            Log.i (TAG, "Facebook Login Successful");
+            Timber.i (TAG, "Facebook Login Successful");
             interactor.requestData (this);
         }
     }
@@ -61,7 +62,7 @@ public class FacebookLoginPresenterImpl implements FacebookLoginPresenter,
 
     @Override
     public void onFirebaseLoginSuccess (User user) {
-        Log.i (TAG, "Firebase Facebook Login successful");
+        Timber.i (TAG, "Firebase Facebook Login successful");
         view.writeToSharedPrefernces (user);
         view.hideProgressDialog ();
 

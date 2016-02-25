@@ -5,9 +5,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +14,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.benjaminlize.yourvoiceheard.R;
 import com.example.benjaminlize.yourvoiceheard.login.email.presenter.EmailLoginPresenter;
 import com.example.benjaminlize.yourvoiceheard.login.email.presenter.EmailLoginPresenterImpl;
-import com.example.benjaminlize.yourvoiceheard.R;
 import com.example.benjaminlize.yourvoiceheard.petitions.view.PetitionsActivity;
 import com.example.benjaminlize.yourvoiceheard.preferences.view.PreferencesActivity;
 import com.example.benjaminlize.yourvoiceheard.user.User;
 import com.example.benjaminlize.yourvoiceheard.utils.Constants;
 import com.google.gson.Gson;
+
+import timber.log.Timber;
 
 /**
  * Created by Vinay Nikhil Pabba on 14-01-2016.
@@ -55,6 +56,8 @@ public class LoginActivityFragment extends Fragment implements EmailLoginFragmen
 
         viewGroup = inflater.inflate (R.layout.login_fragment_main, container, false);
 
+        Timber.tag (TAG);
+
         sharedPreferences = getContext ().getSharedPreferences (Constants.MY_PREF, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit ();
 
@@ -72,7 +75,7 @@ public class LoginActivityFragment extends Fragment implements EmailLoginFragmen
         loginButton.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick (View v) {
-                Log.i (TAG, "Login button Clicked");
+                Timber.i (TAG, "Login button Clicked");
                 emailLoginPresenter.authenticateCredentials (email.getText ().toString (), password.getText ().toString ());
             }
         });
@@ -109,12 +112,12 @@ public class LoginActivityFragment extends Fragment implements EmailLoginFragmen
 
     @Override
     public void writeToSharedPreferences (User user) {
-        Log.i ("EMAIL VIEW", "UID = " + user.getUid ());
+        Timber.i ("EMAIL VIEW", "UID = " + user.getUid ());
         Gson userGson = new Gson ();
         String userJson = userGson.toJson (user);
         editor.putString ("user", userJson);
         editor.commit ();
-        Log.i("Login UID", "The uid is - " + sharedPreferences.getString ("user", ""));
+        Timber.i("Login UID", "The uid is - " + sharedPreferences.getString ("user", ""));
     }
 
     @Override

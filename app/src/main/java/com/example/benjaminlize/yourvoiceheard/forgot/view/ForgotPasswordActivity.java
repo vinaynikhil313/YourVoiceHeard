@@ -3,7 +3,6 @@ package com.example.benjaminlize.yourvoiceheard.forgot.view;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,8 +17,9 @@ import com.example.benjaminlize.yourvoiceheard.R;
 import com.example.benjaminlize.yourvoiceheard.forgot.presenter.ForgotPasswordPresenter;
 import com.example.benjaminlize.yourvoiceheard.forgot.presenter.ForgotPasswordPresenterImpl;
 import com.example.benjaminlize.yourvoiceheard.login.LoginActivity;
+import com.example.benjaminlize.yourvoiceheard.utils.Utilities;
 
-import org.w3c.dom.Text;
+import timber.log.Timber;
 
 /**
  * Created by Vinay Nikhil Pabba on 30-01-2016.

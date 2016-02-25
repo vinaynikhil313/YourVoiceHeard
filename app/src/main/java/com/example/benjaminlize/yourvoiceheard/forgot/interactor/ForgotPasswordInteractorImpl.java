@@ -1,12 +1,12 @@
 package com.example.benjaminlize.yourvoiceheard.forgot.interactor;
 
-import android.util.Log;
-
 import com.example.benjaminlize.yourvoiceheard.forgot.presenter.OnPasswordResetFinishedListener;
 import com.example.benjaminlize.yourvoiceheard.utils.Constants;
 import com.example.benjaminlize.yourvoiceheard.utils.Utilities;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+
+import timber.log.Timber;
 
 /**
  * Created by Vinay Nikhil Pabba on 30-01-2016.
@@ -21,6 +21,8 @@ public class ForgotPasswordInteractorImpl implements ForgotPasswordInteractor {
 
     @Override
     public void sendResetEmail (String email, OnPasswordResetFinishedListener listener) {
+
+        Timber.tag (TAG);
         this.listener = listener;
 
         firebase.resetPassword (email, new ResetPasswordResultHandler (Constants.RESET));
@@ -28,7 +30,7 @@ public class ForgotPasswordInteractorImpl implements ForgotPasswordInteractor {
 
     @Override
     public void changePassword (String email, String oldPassword, String newPassword) {
-        Log.i(TAG, email+" "+oldPassword+" "+newPassword);
+        Timber.i(email+" "+oldPassword+" "+newPassword);
         firebase.changePassword (email, oldPassword, newPassword, new ResetPasswordResultHandler (Constants.CHANGE));
     }
 
@@ -47,7 +49,7 @@ public class ForgotPasswordInteractorImpl implements ForgotPasswordInteractor {
 
         @Override
         public void onSuccess () {
-            Log.i (TAG + flag, "OnSuccess");
+            Timber.i ("OnPasswordResetSuccess");
             listener.onSuccess (flag);
         }
     }

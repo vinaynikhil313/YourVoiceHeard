@@ -50,6 +50,6 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     compile 'com.firebase:firebase-client-android:2.5.0'
     compile 'com.facebook.android:facebook-android-sdk:4.6.0'
+    compile 'com.jakewharton.timber:timber:4.0.1'
     compile files('libs/picasso-2.5.2.jar')
-    compile files('libs/YouTubeAndroidPlayerApi.jar')
 }
